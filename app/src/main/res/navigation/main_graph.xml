@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/timetableFragment">
 
+    <fragment
+        android:id="@+id/timetableFragment"
+        android:name="com.example.elormovpmdm.ui.timetable.TimetableFragment"
+        android:label="fragment_timetable"
+        tools:layout="@layout/fragment_timetable" />
+    <fragment
+        android:id="@+id/studentsFragment"
+        android:name="com.example.elormovpmdm.ui.students.StudentsFragment"
+        android:label="fragment_students"
+        tools:layout="@layout/fragment_students" />
+    <fragment
+        android:id="@+id/meetingsFragment"
+        android:name="com.example.elormovpmdm.ui.meetings.MeetingsFragment"
+        android:label="fragment_meetings"
+        tools:layout="@layout/fragment_meetings" />
 </navigation>

@@ -8,48 +8,50 @@
     tools:context=".MainActivity">
 
     <FrameLayout
+        android:id="@+id/toolBar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/tollBar"
-        android:background="@color/white">
+        app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
+        android:background="@color/white"
+        android:elevation="20dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textColor="@color/secondary"
-            android:layout_gravity="center"
+            android:text="@string/timetable"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:textStyle="bold"
             android:textSize="25sp">
         </TextView>
     </FrameLayout>
-
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tollBar"
-        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
-        android:id="@+id/fragmentContainerView"
+        app:layout_constraintTop_toBottomOf="@id/toolBar"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
         app:navGraph="@navigation/main_graph"
         app:defaultNavHost="true"
-        android:name="androidx.navigation.fragment.NavHostFragment"/>
+        android:name="androidx.navigation.fragment.NavHostFragment">
+    </androidx.fragment.app.FragmentContainerView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:background="@color/dark_primary"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/white"
-        app:itemActiveIndicatorStyle="@null"
+        android:id="@+id/bottomBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragmentContainerView"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/bottomBar"
-        app:menu="@menu/bottom_menu">
+        app:menu="@menu/bottom_menu"
+        android:background="@color/white"
+        app:itemIconTint="@color/primary"
+        app:itemTextColor="@color/primary"
+        android:elevation="20dp">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
