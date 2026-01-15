@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ElorMovPMDM</string>
+    <string name="meetings">Bilerak</string>
+    <string name="login_title">Irakasleen ataria</string>
+    <string name="login_subtitle">Hasi saioa zure klaseak kudeatzeko eta ikasleen aurrerapena ikusteko</string>
+    <string name="password">Pasahitza</string>
+    <string name="password_forgot">Pasahitza ahaztu duzu?</string>
+    <string name="login">Hasi Saioa</string>
+    <string name="student_option">Ikaslea zara? Hasi saioa hemen</string>
+    <string name="profile_title">Nore Profila</string>
+    <string name="personal_information">INFORMAZIO PERTSONALA</string>
+    <string name="address">Helbidea</string>
+    <string name="contact">Kontaktua</string>
+    <string name="phone">Telefonoa</string>
+    <string name="spanish">Gaztelania</string>
+    <string name="logout">Itxi Saioa</string>
+    <string name="timetable">Ordutegia</string>
+    <string name="students">Ikasleak</string>
+</resources>
