@@ -8,13 +8,21 @@
     <string name="password_forgot">Pasahitza ahaztu duzu?</string>
     <string name="login">Hasi Saioa</string>
     <string name="student_option">Ikaslea zara? Hasi saioa hemen</string>
-    <string name="profile_title">Nore Profila</string>
+    <string name="profile_title">Nire Profila</string>
     <string name="personal_information">INFORMAZIO PERTSONALA</string>
     <string name="address">Helbidea</string>
     <string name="contact">Kontaktua</string>
     <string name="phone">Telefonoa</string>
+    <string name="language_selection">Hizkuntza Aukeratu</string>
     <string name="spanish">Gaztelania</string>
+    <string name="basque">Euskara</string>
     <string name="logout">Itxi Saioa</string>
     <string name="timetable">Ordutegia</string>
     <string name="students">Ikasleak</string>
+    <string name="monday">Astelehena</string>
+    <string name="tuesday">Asteartea</string>
+    <string name="wednesday">Asteazkena</string>
+    <string name="thursday">Osteguna</string>
+    <string name="friday">Ostirala</string>
+    <string name="english">Ingelesa</string>
 </resources>

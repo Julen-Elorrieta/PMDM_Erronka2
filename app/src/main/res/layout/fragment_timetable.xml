@@ -11,16 +11,44 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvDay"
+        <LinearLayout
+            android:id="@+id/buttonLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textAlignment="center"
-            tools:text="Lunes"
-            android:textSize="24sp"
-            android:textStyle="bold" >
-        </TextView>
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+
+            <ImageButton
+                android:id="@+id/dayBefore"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:src="@drawable/back_ic"
+                android:background="@drawable/rounded_button">
+            </ImageButton>
+
+            <TextView
+                android:id="@+id/tvDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textAlignment="center"
+                tools:text="Lunes"
+                android:text="@string/monday"
+                android:textSize="24sp"
+                android:textStyle="bold" >
+            </TextView>
+
+            <ImageButton
+                android:id="@+id/nextDay"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/forward_ic"
+                android:background="@drawable/rounded_button">
+            </ImageButton>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/classesContainer"
@@ -32,29 +60,5 @@
             android:padding="16dp" >
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/buttonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
-
-            <Button
-                android:id="@+id/btnPrevious"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="Anterior" >
-            </Button>
-
-            <Button
-                android:id="@+id/btnNext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Siguiente" >
-            </Button>
-        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

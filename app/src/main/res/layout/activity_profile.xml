@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -23,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_ic"
+            android:backgroundTint="@color/white"
             android:layout_gravity="center_vertical">
         </ImageButton>
         <TextView
@@ -33,14 +35,16 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="25sp"
-            android:layout_marginStart="25dp">
+            android:layout_marginStart="50dp">
         </TextView>
 
         <ImageButton
             android:id="@+id/btnThemeChange"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:padding="5dp"
             android:src="@drawable/theme_change"
+            android:background="@color/white"
             android:layout_gravity="end|center_vertical">
         </ImageButton>
     </FrameLayout>
@@ -59,7 +63,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/photo_bg"
-            android:backgroundTint="@color/background_image"
             android:src="@drawable/teacher"
             android:padding="10dp">
         </ImageView>
@@ -248,8 +251,8 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_button"
         android:padding="16dp"
-        android:gravity="center"
-        android:hint="Seleccionar Idioma"
+        android:hint="@string/language_selection"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardContact">
@@ -259,7 +262,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:gravity="center"
             android:text="@string/spanish"
             android:textColor="@color/white"
             android:textSize="15sp"/>

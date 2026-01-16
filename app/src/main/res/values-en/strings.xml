@@ -13,8 +13,16 @@
     <string name="address">Address</string>
     <string name="contact">Contact</string>
     <string name="phone">Phone</string>
+    <string name="language_selection">Select Language</string>
     <string name="spanish">Spanish</string>
+    <string name="basque">Basque</string>
     <string name="logout">Log Out</string>
     <string name="timetable">Timetable</string>
     <string name="students">Students</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="english">English</string>
 </resources>

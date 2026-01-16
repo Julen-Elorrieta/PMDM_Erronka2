@@ -26,7 +26,17 @@
     <string name="address">Dirección</string>
     <string name="contact">CONTACTO</string>
     <string name="phone">Teléfono</string>
+    <string name="language_selection">Seleccionar Idioma</string>
     <string name="spanish">Español</string>
+    <string name="english">Inglés</string>
+    <string name="basque">Euskera</string>
     <string name="logout">Cerrar Sesión</string>
+    
+    <!-- fragment_timetable -->
+    <string name="monday">Lunes</string>
+    <string name="tuesday">Martes</string>
+    <string name="wednesday">Miércoles</string>
+    <string name="thursday">Jueves</string>
+    <string name="friday">Viernes</string>
 
 </resources>

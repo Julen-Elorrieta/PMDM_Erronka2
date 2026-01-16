@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/main_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -15,9 +15,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
+        android:orientation="horizontal"
         android:background="@color/white"
         android:elevation="20dp">
         <TextView
+            android:id="@+id/tvToolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/timetable"
@@ -26,6 +28,17 @@
             android:textStyle="bold"
             android:textSize="25sp">
         </TextView>
+
+        <ImageView
+            android:id="@+id/btnProfile"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/teacher"
+            android:padding="10dp"
+            android:background="@drawable/photo_bg"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="20dp">
+        </ImageView>
     </FrameLayout>
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"

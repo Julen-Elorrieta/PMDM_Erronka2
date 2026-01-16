@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:background="@color/white">
 
     <LinearLayout
@@ -37,14 +38,14 @@
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="@string/login_subtitle"
-            android:textColor="@color/secondary"
+            android:textColor="@color/grey"
             android:textSize="16sp" >
         </TextView>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:text="@string/email"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -52,15 +53,20 @@
         </TextView>
 
         <EditText
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/card_bg"
-            tools:text="@string/email_hint"
+            android:hint="@string/email_hint"
             android:inputType="textEmailAddress"
             android:padding="12dp"
             android:textSize="15sp"
-            android:layout_gravity="center_vertical">
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:clickable="true"
+            android:nextFocusDown="@+id/etPassword"
+            android:imeOptions="actionNext">
         </EditText>
 
         <TextView
@@ -74,13 +80,18 @@
         </TextView>
 
         <EditText
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="8dp"
-            tools:text="@string/password_hint"
+            android:background="@drawable/card_bg"
+            android:hint="@string/password_hint"
             android:inputType="textPassword"
             android:padding="12dp"
-            android:textSize="15sp">
+            android:textSize="15sp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:clickable="true">
         </EditText>
 
         <TextView
@@ -95,6 +106,7 @@
         </TextView>
 
         <Button
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
