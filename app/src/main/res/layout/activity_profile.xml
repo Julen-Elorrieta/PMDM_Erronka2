@@ -64,7 +64,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/photo_bg"
             android:src="@drawable/teacher"
-            android:padding="10dp">
+            android:padding="15dp">
         </ImageView>
 
         <ImageView

@@ -5,6 +5,16 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <style name="ActiveTextStyle" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="InactiveTextStyle" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    
     <style name="RoundedImageView" parent="">
         <item name="cornerSize">24dp</item>
         <item name="cornerFamily">rounded</item>
