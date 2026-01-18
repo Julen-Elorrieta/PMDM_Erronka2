@@ -38,15 +38,16 @@
             android:layout_marginStart="50dp">
         </TextView>
 
-        <ImageButton
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/btnThemeChange"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="5dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="15dp"
             android:src="@drawable/theme_change"
-            android:background="@color/white"
-            android:layout_gravity="end|center_vertical">
-        </ImageButton>
+            android:clickable="true"
+            android:focusable="true"
+            app:contentPadding="10dp"/>
     </FrameLayout>
 
     <FrameLayout
@@ -62,7 +63,7 @@
             android:id="@+id/ivTeacher"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/photo_bg"
+            android:background="@drawable/profile_bg"
             android:src="@drawable/teacher"
             android:padding="15dp">
         </ImageView>
@@ -71,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:background="@drawable/photo_bg"
+        android:background="@drawable/profile_bg"
         android:backgroundTint="@color/black"
         android:padding="8dp"
         android:src="@android:drawable/ic_menu_camera" />
@@ -99,7 +100,7 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="6dp"
         tools:text="Profesor de Matemáticas"
-        android:textColor="@color/white"
+        android:textColor="?attr/android:textColorPrimary"
         android:textStyle="bold"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,60 +120,64 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCargo" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardPersonal"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelInfo"
-        android:layout_marginHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/labelInfo"
         android:layout_marginTop="8dp"
-        android:background="@drawable/card_bg"
-        android:padding="16dp">
+        android:layout_marginHorizontal="20dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="?attr/colorPrimary">
 
-        <TextView
-            android:id="@+id/tvLabelID"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/user_id"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:padding="16dp">
+            <TextView
+                android:id="@+id/labelID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/user_id"
+                android:textSize="15sp">
+            </TextView>
+            <TextView
+                android:id="@+id/userID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="123456"
+                android:textSize="15sp">
+            </TextView>
+            <TextView
+                android:id="@+id/labelDirection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/labelID"
+                android:text="@string/address"
+                android:textSize="15sp">
+            </TextView>
+            <TextView
+                android:id="@+id/userAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userID"
+                tools:text="Calle 1, Bilbao"
+                android:textSize="15sp">
+            </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:id="@+id/tvID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="8912384"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvLabelAdress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/address"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvLabelID"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <TextView
-            android:id="@+id/tvAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Calle 1, Bilbao"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvID"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/labelContact"
@@ -187,83 +192,80 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardPersonal" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardContact"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/labelContact"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/card_bg">
-
-        <TextView
-            android:id="@+id/tvLabelEmail"
-            android:layout_width="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/labelContact"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="?attr/colorPrimary">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/email"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="roberto.garcia@elorriteta-errekamari.com"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvLabelPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phone"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvLabelEmail"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="634 24 26 57"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvEmail"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:padding="16dp">
+            <TextView
+                android:id="@+id/labelPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/phone"
+                android:textSize="15sp">
+            </TextView>
+            <TextView
+                android:id="@+id/userPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="652 14 57 95"
+                android:textSize="15sp">
+            </TextView>
+            <TextView
+                android:id="@+id/labelEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/labelPhone"
+                android:text="@string/email"
+                android:textSize="15sp">
+            </TextView>
+            <TextView
+                android:id="@+id/userEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userPhone"
+                tools:text="@string/email_hint">
+            </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/menuIdioma"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        style="@style/styleLanguageSelector"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardContact"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_button"
-        android:padding="16dp"
         android:hint="@string/language_selection"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardContact">
+        android:textColorHint="?attr/android:textColorPrimary">
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text="@string/spanish"
-            android:textColor="@color/white"
+            android:textColor="?attr/android:textColorPrimary"
             android:textSize="15sp"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -279,7 +281,7 @@
         android:text="@string/logout"
         android:textColor="@color/white"
         android:textSize="15sp"
-        android:background="@drawable/rounded_button"
+        style="@style/button_style"
         android:backgroundTint="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -13,7 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.elormovpmdm.databinding.ActivityMainBinding
 import com.example.elormovpmdm.ui.teacherProfile.ProfileActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController

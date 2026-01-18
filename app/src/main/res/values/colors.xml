@@ -2,14 +2,32 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="grey">#FF000000</color>
-    <color name="background_light">@android:color/system_accent1_100</color>
+    
+    <color name="primary">#3F51B5</color>
+    <color name="dark_primary">#303F9F</color>
+    <color name="light_primary">#C5CAE9</color>
+    <color name="accent">#448AFF</color>
+    <color name="secondary_text">#757575</color>
+    <color name="divider">#BDBDBD</color>
 
-    <color name="primary">#0099cc</color>
-    <color name="dark_primary">#1F489E</color>
-    <color name="secondary">#3B4649</color>
-    <color name="background_image">#efb9a3</color>
+    <!-- Fondo principal -->
+    <color name="background_dark">#121212</color>
+    <color name="surface_dark">#1E1E1E</color>
 
-    <color name="red_light">#fef2f2</color>
-    <color name="red">#FF0000</color>
+    <!-- Primarios adaptados -->
+    <color name="primary_dark">#9FA8DA</color>        <!-- versión clara del primary -->
+    <color name="dark_primary_dark">#7986CB</color>   <!-- variante más intensa -->
+    <color name="light_primary_dark">#E8EAF6</color>  <!-- casi blanco azulado -->
+
+    <!-- Accent adaptado -->
+    <color name="accent_dark">#82B1FF</color>
+
+    <!-- Texto -->
+    <color name="text_primary_dark">#E0E0E0</color>
+    <color name="text_secondary_dark">#B0B0B0</color>
+
+    <!-- Divisores y bordes -->
+    <color name="divider_dark">#2C2C2C</color>
+    
+    <color name="red">#D32F2F</color>
 </resources>

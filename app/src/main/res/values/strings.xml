@@ -31,7 +31,7 @@
     <string name="english">Inglés</string>
     <string name="basque">Euskera</string>
     <string name="logout">Cerrar Sesión</string>
-    
+
     <!-- fragment_timetable -->
     <string name="monday">Lunes</string>
     <string name="tuesday">Martes</string>

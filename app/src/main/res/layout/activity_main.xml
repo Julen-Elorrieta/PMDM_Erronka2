@@ -30,16 +30,17 @@
             android:textSize="25sp">
         </TextView>
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/btnProfile"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="15dp"
             android:src="@drawable/teacher"
-            android:padding="10dp"
-            android:background="@drawable/photo_bg"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="20dp">
-        </ImageView>
+            android:background="@drawable/profile_bg"
+            android:clickable="true"
+            android:focusable="true"
+            app:contentPadding="10dp"/>
     </com.google.android.material.appbar.MaterialToolbar>
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"

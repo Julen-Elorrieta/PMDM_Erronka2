@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.ElorMovPMDM">
         <activity
+            android:name=".BaseActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.teacherProfile.ProfileActivity"
             android:exported="false" />
         <activity
@@ -25,8 +28,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>
