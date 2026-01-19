@@ -42,6 +42,22 @@ class MainActivity : BaseActivity() {
     private fun initNavigation() {
         val navHost: NavHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHost.navController
+        
+        val userRole = intent.getStringExtra("USER_ROLE") ?: "teacher"
+        
+        val navGraph = navController.navInflater.inflate(R.navigation.main_graph)
+        
+        if (userRole == "teacher") {
+            binding.bottomBar.menu.clear()
+            binding.bottomBar.inflateMenu(R.menu.teacher_bottom_menu)
+            navGraph.setStartDestination(R.id.timetableFragment)
+        } else {
+            binding.bottomBar.menu.clear()
+            binding.bottomBar.inflateMenu(R.menu.student_bottom_menu)
+            navGraph.setStartDestination(R.id.timetableFragment)
+        }
+        
+        navController.graph = navGraph
         binding.bottomBar.setupWithNavController(navController)
         
         navController.addOnDestinationChangedListener { _, destination, arguments ->

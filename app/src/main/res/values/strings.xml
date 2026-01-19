@@ -9,15 +9,22 @@
     <string name="meetings">Reuniones</string>
 
     <!-- activity_login -->
-    <string name="login_title">Portal de profesor</string>
-    <string name="login_subtitle">Inicie sesión para gestionar sus clases y ver el progreso de los alumnos</string>
     <string name="email" translatable="false">Email</string>
     <string name="email_hint" translatable="false">professor@elorrieta-errekamari.com</string>
     <string name="password">Contraseña</string>
     <string name="password_hint" translatable="false">••••••••</string>
     <string name="password_forgot">¿Olvidaste la contraseña?</string>
     <string name="login">Iniciar Sesión</string>
-    <string name="student_option">¿Eres estudiante? Inicia sesión aquí</string>
+
+    <!-- activity_teacher_login -->
+    <string name="teacher_login_title">Portal de profesor</string>
+    <string name="teacher_login_subtitle">Inicie sesión para gestionar sus clases y ver el progreso de los alumnos</string>
+    <string name="teacher_student_option">¿Eres estudiante? Inicia sesión aquí</string>
+
+    <!-- activity_student_login -->
+    <string name="student_login_title">Portal de estudiante</string>
+    <string name="student_login_subtitle">Inicie sesión para gestionar su horario</string>
+    <string name="student_teacher_option">¿Eres profesor? Inicia sesión aquí</string>
 
     <!-- activity_profile -->
     <string name="profile_title">Mi Perfil</string>

@@ -67,7 +67,6 @@ class ProfileActivity : BaseActivity() {
         binding.btnThemeChange.setOnClickListener {
             lifecycleScope.launch {
                 val isDark = settingsDataStore.darkModeFlow.first()
-                
                 settingsDataStore.saveDarkMode(!isDark)
             }
         }

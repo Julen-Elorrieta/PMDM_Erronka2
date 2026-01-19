@@ -2,12 +2,10 @@
 <resources>
     <string name="app_name">ElorMovPMDM</string>
     <string name="meetings">Meetings</string>
-    <string name="login_title">Professor Portal</string>
-    <string name="login_subtitle">Please sign in to manage your classes and view student progress</string>
     <string name="password">Password</string>
     <string name="password_forgot">Forgot password?</string>
     <string name="login">Log In</string>
-    <string name="student_option">Are you a student? Login here</string>
+    <string name="student_teacher_option">Are you a teacher? Log in here.</string>
     <string name="profile_title">My Profile</string>
     <string name="personal_information">PERSONAL INFORMATION</string>
     <string name="address">Address</string>
@@ -25,4 +23,9 @@
     <string name="thursday">Thursday</string>
     <string name="friday">Friday</string>
     <string name="english">English</string>
+    <string name="teacher_login_title">Teacher portal</string>
+    <string name="teacher_student_option">Are you a student? Log in here.</string>
+    <string name="student_login_title">Student portal</string>
+    <string name="teacher_login_subtitle">Log in to manage your classes and view student progress.</string>
+    <string name="student_login_subtitle">Log in to manage your schedule</string>
 </resources>
