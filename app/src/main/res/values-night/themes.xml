@@ -4,15 +4,14 @@
         <!-- Colores principales adaptados -->
         <item name="colorPrimary">@color/primary_dark</item>
         <item name="colorPrimaryVariant">@color/dark_primary_dark</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/primary_dark</item>
 
         <item name="colorSecondary">@color/accent_dark</item>
         <item name="colorOnSecondary">@color/black</item>
 
         <!-- Fondos -->
-        <item name="android:windowBackground">@color/background_dark</item>
-        <item name="colorSurface">@color/surface_dark</item>
         <item name="backgroundColor">@color/background_dark</item>
+        <item name="colorPrimarySurface">@color/surface_dark</item>
 
         <!-- Texto -->
         <item name="android:textColorPrimary">@color/text_primary_dark</item>

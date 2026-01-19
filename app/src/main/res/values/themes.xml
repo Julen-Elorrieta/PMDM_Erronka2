@@ -4,13 +4,14 @@
         <!-- Colores principales -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/dark_primary</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/primary</item>
 
         <item name="colorSecondary">@color/accent</item>
         <item name="colorOnSecondary">@color/white</item>
 
         <!-- Fondos -->
-        <item name="backgroundColor">@color/light_primary</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="colorPrimarySurface">@color/light_primary</item>
 
         <!-- Texto -->
         <item name="android:textColorPrimary">@color/black</item>
@@ -30,8 +31,8 @@
     </style>
 
     <style name="text_input" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxBackgroundColor">@color/white</item>
-        <item name="boxStrokeColor">@color/primary</item>
+        <item name="boxBackgroundColor">?attr/backgroundColor</item>
+        <item name="boxStrokeColor">?attr/android:textColorPrimary</item>
         <item name="boxStrokeWidth">2dp</item>
         <item name="boxStrokeWidthFocused">3dp</item>
         <item name="boxCornerRadiusTopStart">12dp</item>
@@ -59,15 +60,15 @@
 
     <style name="styleLanguageSelector" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="boxStrokeWidth">2dp</item>
-        <item name="boxStrokeColor">@color/primary</item>
+        <item name="boxStrokeColor">?attr/android:textColorPrimary</item>
 
         <item name="boxCornerRadiusTopStart">12dp</item>
         <item name="boxCornerRadiusTopEnd">12dp</item>
         <item name="boxCornerRadiusBottomStart">12dp</item>
         <item name="boxCornerRadiusBottomEnd">12dp</item>
 
-        <item name="android:textColorHint">@color/white</item>
-        <item name="hintTextColor">@color/light_primary</item>
+        <item name="android:textColorHint">?attr/android:textColorPrimary</item>
+        <item name="hintTextColor">?attr/android:textColorSecondary</item>
     </style>
     
     <style name="Theme.ElorMovPMDM" parent="Base.Theme.ElorMovPMDM" />

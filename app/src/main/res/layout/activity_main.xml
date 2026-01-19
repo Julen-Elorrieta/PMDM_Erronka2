@@ -5,7 +5,7 @@
     android:id="@+id/main_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
     
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolBar"
@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
         android:orientation="horizontal"
-        android:background="@color/white"
+        android:background="?attr/backgroundColor"
         android:elevation="8dp">
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/timetable"
-            android:textColor="@color/black"
+            android:textColor="?attr/android:textColorPrimary"
             android:layout_gravity="center_horizontal|center_vertical"
             android:textStyle="bold"
             android:textSize="25sp">
@@ -64,8 +64,8 @@
         app:menu="@menu/bottom_menu"
         android:background="@drawable/bottom_nav_bg"
         android:elevation="8dp"
-        app:itemIconTint="@color/primary"
-        app:itemTextColor="@color/primary"
+        app:itemIconTint="?attr/colorOnPrimary"
+        app:itemTextColor="?attr/colorOnPrimary"
         app:itemTextAppearanceActive="@style/ActiveTextStyle"
         app:itemTextAppearanceInactive="@style/InactiveTextStyle"
         app:labelVisibilityMode="selected">

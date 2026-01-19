@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.elormovpmdm.BaseActivity
-import com.example.elormovpmdm.MainActivity
+import com.example.elormovpmdm.ui.main.MainActivity
 import com.example.elormovpmdm.R
 import com.example.elormovpmdm.SettingsDataStore
 import com.example.elormovpmdm.databinding.ActivityProfileBinding

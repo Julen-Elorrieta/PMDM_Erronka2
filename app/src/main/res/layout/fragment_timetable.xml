@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.timetable.TimetableFragment"
-    android:background="@color/light_primary">
+    android:background="?attr/colorPrimarySurface">
 
     <LinearLayout
         android:id="@+id/main"
@@ -21,14 +21,14 @@
             android:paddingTop="16dp"
             android:paddingBottom="16dp">
 
-            <ImageButton
-                android:id="@+id/dayBefore"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:gravity="center"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/back_ic"
-                android:backgroundTint="?attr/backgroundColor">
-            </ImageButton>
+                android:tint="?attr/android:textColorPrimary"
+                android:layout_gravity="center_vertical">
+            </com.google.android.material.imageview.ShapeableImageView>
 
             <TextView
                 android:id="@+id/tvDay"
@@ -42,13 +42,14 @@
                 android:textStyle="bold" >
             </TextView>
 
-            <ImageButton
-                android:id="@+id/nextDay"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btnFordward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/forward_ic"
-                android:backgroundTint="?attr/backgroundColor">
-            </ImageButton>
+                android:tint="?attr/android:textColorPrimary"
+                android:layout_gravity="center_vertical">
+            </com.google.android.material.imageview.ShapeableImageView>
         </LinearLayout>
 
         <LinearLayout

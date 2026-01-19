@@ -1,15 +1,15 @@
-package com.example.elormovpmdm
+package com.example.elormovpmdm.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.elormovpmdm.BaseActivity
+import com.example.elormovpmdm.R
 import com.example.elormovpmdm.databinding.ActivityMainBinding
 import com.example.elormovpmdm.ui.teacherProfile.ProfileActivity
 

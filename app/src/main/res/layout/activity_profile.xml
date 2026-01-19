@@ -6,7 +6,7 @@
     android:id="@+id/profile_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/backgroundColor">
 
     <!-- hay   que poner android:layout_height="?attr/actionBarSize"-->
     <FrameLayout
@@ -19,20 +19,21 @@
         android:padding="10dp"
         android:orientation="horizontal">
 
-        <ImageButton
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_ic"
-            android:backgroundTint="@color/white"
+            android:foregroundTint="?attr/android:textColorPrimary"
+            android:tint="?attr/android:textColorPrimary"
             android:layout_gravity="center_vertical">
-        </ImageButton>
+        </com.google.android.material.imageview.ShapeableImageView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/profile_title"
-            android:textColor="@color/black"
+            android:textColor="?attr/android:textColorPrimary"
             android:textStyle="bold"
             android:textSize="25sp"
             android:layout_marginStart="50dp">
@@ -45,6 +46,7 @@
             android:layout_gravity="center_vertical|end"
             android:layout_marginEnd="15dp"
             android:src="@drawable/theme_change"
+            android:tint="?attr/android:textColorPrimary"
             android:clickable="true"
             android:focusable="true"
             app:contentPadding="10dp"/>
@@ -73,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:background="@drawable/profile_bg"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="?attr/android:textColorPrimary"
         android:padding="8dp"
         android:src="@android:drawable/ic_menu_camera" />
     </FrameLayout>
@@ -249,7 +251,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/menuIdioma"
-        style="@style/styleLanguageSelector"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -257,6 +258,7 @@
         app:layout_constraintTop_toBottomOf="@id/cardContact"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="16dp"
+        style="@style/styleLanguageSelector"
         android:hint="@string/language_selection"
         android:textColorHint="?attr/android:textColorPrimary">
 
