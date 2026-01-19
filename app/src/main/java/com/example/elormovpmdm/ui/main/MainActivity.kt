@@ -12,7 +12,9 @@ import com.example.elormovpmdm.BaseActivity
 import com.example.elormovpmdm.R
 import com.example.elormovpmdm.databinding.ActivityMainBinding
 import com.example.elormovpmdm.ui.teacherProfile.ProfileActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
     
     private lateinit var binding: ActivityMainBinding

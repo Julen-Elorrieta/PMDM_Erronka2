@@ -6,61 +6,9 @@
     tools:context=".ui.timetable.TimetableFragment"
     android:background="?attr/colorPrimarySurface">
 
-    <LinearLayout
-        android:id="@+id/main"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTimetable"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/buttonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/btnBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/back_ic"
-                android:tint="?attr/android:textColorPrimary"
-                android:layout_gravity="center_vertical">
-            </com.google.android.material.imageview.ShapeableImageView>
-
-            <TextView
-                android:id="@+id/tvDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textAlignment="center"
-                tools:text="Lunes"
-                android:text="@string/monday"
-                android:textSize="24sp"
-                android:textStyle="bold" >
-            </TextView>
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/btnFordward"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/forward_ic"
-                android:tint="?attr/android:textColorPrimary"
-                android:layout_gravity="center_vertical">
-            </com.google.android.material.imageview.ShapeableImageView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/classesContainer"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="16dp" >
-        </LinearLayout>
-
-    </LinearLayout>
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
 </FrameLayout>

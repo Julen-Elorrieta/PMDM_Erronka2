@@ -27,6 +27,7 @@
     <string name="student_teacher_option">¿Eres profesor? Inicia sesión aquí</string>
 
     <!-- activity_profile -->
+    <string name="name_example" translatable="false">Dr Roberto García</string>
     <string name="profile_title">Mi Perfil</string>
     <string name="personal_information">INFORMACIÓN PERSONAL</string>
     <string name="user_id" translatable="false">ID</string>

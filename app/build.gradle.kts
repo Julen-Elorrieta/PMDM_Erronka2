@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    // Hilt
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -49,6 +53,11 @@ dependencies {
 
     // Preferences
     implementation(libs.androidx.datastore.preferences)
+
+    // DaggerHilt
+    val daggerVersion = "2.48"
+    implementation("com.google.dagger:hilt-android:$daggerVersion")
+    kapt("com.google.dagger:hilt-compiler:$daggerVersion")
     
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
