@@ -28,6 +28,7 @@
 
     <!-- Divisores y bordes -->
     <color name="divider_dark">#2C2C2C</color>
-    
+
+    <color name="orange">#ff6c37</color>
     <color name="red">#D32F2F</color>
 </resources>

@@ -40,7 +40,9 @@
     <string name="basque">Euskera</string>
     <string name="logout">Cerrar Sesión</string>
 
-    <!-- fragment_timetable -->
+    <!-- fragment_schedule -->
+    <string name="my_timetable">Mi horario</string>
+    <string name="my_timetable_description">Pulsa para ver tu horario</string>
     <string name="monday">Lunes</string>
     <string name="tuesday">Martes</string>
     <string name="wednesday">Miércoles</string>

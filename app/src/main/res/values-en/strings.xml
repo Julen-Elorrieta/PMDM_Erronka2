@@ -17,6 +17,7 @@
     <string name="logout">Log Out</string>
     <string name="timetable">Timetable</string>
     <string name="students">Students</string>
+    <string name="my_timetable_description">Click to view your schedule</string>
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
     <string name="wednesday">Wednesday</string>
@@ -28,4 +29,5 @@
     <string name="student_login_title">Student portal</string>
     <string name="teacher_login_subtitle">Log in to manage your classes and view student progress.</string>
     <string name="student_login_subtitle">Log in to manage your schedule</string>
+    <string name="my_timetable">My timetable</string>
 </resources>

@@ -17,6 +17,7 @@
     <string name="logout">Itxi Saioa</string>
     <string name="timetable">Ordutegia</string>
     <string name="students">Ikasleak</string>
+    <string name="my_timetable_description">Sakatu zure ordutegia ikusteko</string>
     <string name="monday">Astelehena</string>
     <string name="tuesday">Asteartea</string>
     <string name="wednesday">Asteazkena</string>
@@ -28,4 +29,5 @@
     <string name="student_login_title">Ikasle ataria</string>
     <string name="teacher_login_subtitle">Hasi saioa zure klaseak kudeatzeko eta ikasleen aurrerapena ikusteko</string>
     <string name="student_login_subtitle">Hasi zure ordutegia kudeatzeko saioa</string>
+    <string name="my_timetable">Nire ordutegia</string>
 </resources>

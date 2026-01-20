@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginVertical="8dp"
         android:layout_marginHorizontal="16dp"
-        app:cardBackgroundColor="?attr/colorPrimary"
+        app:cardBackgroundColor="@color/orange"
         app:cardCornerRadius="16dp"
         android:elevation="8dp">
 
@@ -34,7 +34,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                tools:text="Mi horario" />
+                android:text="@string/my_timetable"/>
 
             <TextView
                 android:id="@+id/tvEmail"
@@ -46,7 +46,7 @@
                 android:background="@drawable/badge_bg"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="6dp"
-                tools:text="Pulsa para ver tu horario"
+                android:text="@string/my_timetable_description"
                 android:textColor="?attr/android:textColorPrimary"
                 android:textStyle="bold"
                 android:textSize="11sp"
@@ -60,7 +60,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:src="@drawable/forward_ic"
-                android:tint="?attr/colorAccent">
+                android:tint="?attr/colorOnPrimary">
             </com.google.android.material.imageview.ShapeableImageView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -86,6 +86,5 @@
         app:layout_constraintTop_toBottomOf="@id/divider"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="10dp">
-    
     </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>
