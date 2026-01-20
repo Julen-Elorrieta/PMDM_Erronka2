@@ -30,4 +30,5 @@
     <string name="teacher_login_subtitle">Log in to manage your classes and view student progress.</string>
     <string name="student_login_subtitle">Log in to manage your schedule</string>
     <string name="my_timetable">My timetable</string>
+    <string name="classroom_example">Classroom B101</string>
 </resources>

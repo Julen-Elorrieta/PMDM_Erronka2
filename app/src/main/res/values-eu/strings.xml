@@ -30,4 +30,5 @@
     <string name="teacher_login_subtitle">Hasi saioa zure klaseak kudeatzeko eta ikasleen aurrerapena ikusteko</string>
     <string name="student_login_subtitle">Hasi zure ordutegia kudeatzeko saioa</string>
     <string name="my_timetable">Nire ordutegia</string>
+    <string name="classroom_example">Gela B101</string>
 </resources>
