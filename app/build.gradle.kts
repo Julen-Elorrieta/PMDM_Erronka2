@@ -58,6 +58,11 @@ dependencies {
     val daggerVersion = "2.48"
     implementation("com.google.dagger:hilt-android:$daggerVersion")
     kapt("com.google.dagger:hilt-compiler:$daggerVersion")
+
+    //Retrofit
+    val retrofitVersion = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
