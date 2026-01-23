@@ -60,13 +60,13 @@ class TeacherLoginActivity : BaseActivity() {
     }
 
     private fun handleLoginSuccess (user: UserResponse) {
-        val tipo = user.tipo_id?.nombre
+        val tipo = user.tipoId
 
         val intent = when(tipo) {
-            "profesor" -> Intent(this, MainActivity::class.java).apply {
+            3 -> Intent(this, MainActivity::class.java).apply {
                 putExtra("USER_ROLE", "teacher")
             }
-            "alumno" -> Intent(this, MainActivity::class.java).apply {
+            4 -> Intent(this, MainActivity::class.java).apply {
                 putExtra("USER_ROLE", "student")
             }
             else -> Intent(this, MainActivity::class.java)
