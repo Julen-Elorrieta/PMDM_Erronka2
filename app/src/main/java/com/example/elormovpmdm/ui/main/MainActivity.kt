@@ -11,7 +11,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.elormovpmdm.BaseActivity
 import com.example.elormovpmdm.R
 import com.example.elormovpmdm.databinding.ActivityMainBinding
-import com.example.elormovpmdm.ui.teacherProfile.ProfileActivity
+import com.example.elormovpmdm.domain.SessionManager
+import com.example.elormovpmdm.ui.profile.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,18 +45,16 @@ class MainActivity : BaseActivity() {
     private fun initNavigation() {
         val navHost: NavHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHost.navController
-        
-        val userRole = intent.getStringExtra("USER_ROLE") ?: "teacher"
-        
+
         val navGraph = navController.navInflater.inflate(R.navigation.main_graph)
         
-        if (userRole == "teacher") {
+        if (SessionManager.currentUser?.tipoId == 4) {
             binding.bottomBar.menu.clear()
-            binding.bottomBar.inflateMenu(R.menu.teacher_bottom_menu)
+            binding.bottomBar.inflateMenu(R.menu.student_bottom_menu)
             navGraph.setStartDestination(R.id.timetableFragment)
         } else {
             binding.bottomBar.menu.clear()
-            binding.bottomBar.inflateMenu(R.menu.student_bottom_menu)
+            binding.bottomBar.inflateMenu(R.menu.teacher_bottom_menu)
             navGraph.setStartDestination(R.id.timetableFragment)
         }
         

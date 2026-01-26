@@ -17,12 +17,11 @@ import com.example.elormovpmdm.ui.main.MainActivity
 import com.example.elormovpmdm.R
 import com.example.elormovpmdm.data.login.LoginState
 import com.example.elormovpmdm.databinding.ActivityTeacherLoginBinding
-import com.example.elormovpmdm.domain.model.UserResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TeacherLoginActivity : BaseActivity() {
+class LoginActivity : BaseActivity() {
 
     private lateinit var binding: ActivityTeacherLoginBinding
     private val loginViewModel: LoginViewModel by viewModels()
@@ -59,19 +58,8 @@ class TeacherLoginActivity : BaseActivity() {
         }
     }
 
-    private fun handleLoginSuccess (user: UserResponse) {
-        val tipo = user.tipoId
-
-        val intent = when(tipo) {
-            3 -> Intent(this, MainActivity::class.java).apply {
-                putExtra("USER_ROLE", "teacher")
-            }
-            4 -> Intent(this, MainActivity::class.java).apply {
-                putExtra("USER_ROLE", "student")
-            }
-            else -> Intent(this, MainActivity::class.java)
-        }
-
+    private fun handleLoginSuccess () {
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
@@ -86,7 +74,7 @@ class TeacherLoginActivity : BaseActivity() {
                         }
                         is LoginState.Success -> {
                             Log.i("GVA", "Succes")
-                            handleLoginSuccess(state.user)
+                            handleLoginSuccess()
                         }
                         is LoginState.Error -> {
                             binding.btnLogin.isEnabled = true

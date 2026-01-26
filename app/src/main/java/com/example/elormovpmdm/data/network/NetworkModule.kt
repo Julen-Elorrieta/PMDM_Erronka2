@@ -1,6 +1,7 @@
 package com.example.elormovpmdm.data.network
 
 import com.example.elormovpmdm.data.login.LoginApiService
+import com.example.elormovpmdm.data.students.StudentsApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +25,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provierElorapiService(retrofit: Retrofit): LoginApiService {
+    fun provideLoginApiService(retrofit: Retrofit): LoginApiService {
         return retrofit.create(LoginApiService::class.java)
+    }
+
+    // TE FALTA ESTO:
+    @Provides
+    @Singleton
+    fun provideStudentsApiService(retrofit: Retrofit): StudentsApiService {
+        return retrofit.create(StudentsApiService::class.java)
     }
 }

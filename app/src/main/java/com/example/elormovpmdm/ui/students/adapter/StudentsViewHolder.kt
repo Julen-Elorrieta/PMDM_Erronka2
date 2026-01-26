@@ -4,13 +4,17 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elormovpmdm.databinding.UserCardBinding
 import com.example.elormovpmdm.domain.User
+import com.example.elormovpmdm.domain.model.UserResponse
 
 class StudentsViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = UserCardBinding.bind(view)
     
-    fun render(user: User, onItemSelected: (User) -> Unit) {
-        binding.tvName.setText(user.name)
-        binding.tvEmail.setText(user.email)
+    fun render(user: UserResponse, onItemSelected: (UserResponse) -> Unit) {
+        val name: String = user.nombre
+        val surname: String = user.apellidos
+
+        binding.tvName.text = "$name $surname"
+        binding.tvEmail.text = user.email
         
         binding.root.setOnClickListener {
             onItemSelected(user)

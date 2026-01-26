@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.elormovpmdm.data.login.LoginApiService
 import com.example.elormovpmdm.data.login.LoginState
+import com.example.elormovpmdm.domain.SessionManager
 import com.example.elormovpmdm.domain.model.LoginRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -41,7 +42,8 @@ class LoginViewModel @Inject constructor(
             if (result != null && result.isSuccessful) {
                 val user = result.body()
                 if (user != null) {
-                    _state.value = LoginState.Success(user)
+                    _state.value = LoginState.Success
+                    SessionManager.currentUser = user
                 } else {
                     _state.value = LoginState.Error("Respuesta vaccía del servidor")
                 }

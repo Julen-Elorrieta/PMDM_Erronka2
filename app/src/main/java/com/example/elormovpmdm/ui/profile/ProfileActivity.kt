@@ -1,21 +1,18 @@
-package com.example.elormovpmdm.ui.teacherProfile
+package com.example.elormovpmdm.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.os.LocaleListCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.elormovpmdm.BaseActivity
 import com.example.elormovpmdm.ui.main.MainActivity
 import com.example.elormovpmdm.R
-import com.example.elormovpmdm.SettingsDataStore
 import com.example.elormovpmdm.databinding.ActivityProfileBinding
+import com.example.elormovpmdm.domain.SessionManager
+import com.example.elormovpmdm.domain.model.UserResponse
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -36,6 +33,7 @@ class ProfileActivity : BaseActivity() {
             insets
         }
         initComponent()
+        initUI()
     }
     
     private fun initComponent() {
@@ -70,5 +68,26 @@ class ProfileActivity : BaseActivity() {
                 settingsDataStore.saveDarkMode(!isDark)
             }
         }
+    }
+
+    private fun initUI() {
+
+        val user: UserResponse? = SessionManager.currentUser
+
+        val email: String? = user?.email
+        val userName: String? = user?.username
+        val name: String? = user?.nombre
+        val surname: String? = user?.apellidos
+        val id: Int? = user?.id
+        val address: String? = user?.direccion
+        val phone: String? = user?.telefono1
+
+
+        binding.nombreProfesor.text = "$name $surname"
+        binding.tvUserName.text = userName
+        binding.userID.text = id.toString()
+        binding.userAddress.text = address
+        binding.userPhone.text = phone
+        binding.userEmail.text = email
     }
 }

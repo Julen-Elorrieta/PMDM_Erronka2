@@ -94,7 +94,7 @@
         app:layout_constraintTop_toBottomOf="@+id/photoContainer" />
 
     <TextView
-        android:id="@+id/tvCargo"
+        android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -120,7 +120,7 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCargo" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardPersonal"
