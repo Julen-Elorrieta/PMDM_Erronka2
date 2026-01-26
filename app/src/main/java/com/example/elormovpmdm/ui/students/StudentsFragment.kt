@@ -12,7 +12,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.elormovpmdm.databinding.FragmentStudentsBinding
 import com.example.elormovpmdm.databinding.StudentBottomsheetlayoutBinding
-import com.example.elormovpmdm.domain.User
 import com.example.elormovpmdm.domain.model.UserResponse
 import com.example.elormovpmdm.ui.students.adapter.StudentsAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +45,6 @@ class StudentsFragment : Fragment() {
     }
     
     private fun initComponents() {
-        studentsViewModel.getAllStudents()
         studentsAdapter = StudentsAdapter(onItemSelected = { onItemSelected(it) })
         binding.rvStudents.layoutManager = GridLayoutManager(context, 1)
         binding.rvStudents.adapter = studentsAdapter
@@ -56,7 +54,14 @@ class StudentsFragment : Fragment() {
         val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(requireContext())
         val sheetBinding = StudentBottomsheetlayoutBinding.inflate(layoutInflater)
         
-        sheetBinding.userName.text = user.nombre
+        val name: String = user.nombre
+        val surname: String = user.apellidos
+        
+        sheetBinding.userName.text = "$name $surname"
+        sheetBinding.tvUserName.text = user.username
+        sheetBinding.userID.text = user.id.toString()
+        sheetBinding.userAddress.text = user.direccion
+        sheetBinding.userPhone.text = user.telefono1
         sheetBinding.userEmail.text = user.email
         
         dialog.setContentView(sheetBinding.root)
@@ -66,7 +71,7 @@ class StudentsFragment : Fragment() {
     private fun initUI() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                studentsViewModel.user.collect {
+                studentsViewModel.users.collect {
                     studentsAdapter.updateList(it)
                 }
             }

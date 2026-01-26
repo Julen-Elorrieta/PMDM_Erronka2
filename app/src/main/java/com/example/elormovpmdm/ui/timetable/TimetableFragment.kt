@@ -9,12 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.elormovpmdm.R
 import com.example.elormovpmdm.databinding.FragmentTimetableBinding
-import com.example.elormovpmdm.domain.User
-import com.example.elormovpmdm.domain.UserModel
+import com.example.elormovpmdm.domain.model.UserResponse
 import com.example.elormovpmdm.ui.timetable.adapter.TimetableAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -47,18 +44,14 @@ class TimetableFragment : Fragment() {
         binding.rvTimetable.adapter = timetableAdapter
     }
 
-    private fun onItemSelected(user: User) {
-        var type = when (user) {
-            User.DrRobertoGarcia -> UserModel.DrRobertoGarcia
-            User.DrRobertoGarcia2 -> UserModel.DrRobertoGarcia2
-        }
-        
+    private fun onItemSelected(user: UserResponse) {
+                
     }
 
     private fun initUI() {
         lifecycleScope.launch { 
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                timetableViewModel.user.collect { 
+                timetableViewModel.users.collect { 
                     timetableAdapter.updateList(it)
                 }
             }

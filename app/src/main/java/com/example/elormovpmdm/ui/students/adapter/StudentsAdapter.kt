@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elormovpmdm.R
-import com.example.elormovpmdm.domain.User
 import com.example.elormovpmdm.domain.model.UserResponse
 
 class StudentsAdapter(
@@ -31,7 +30,6 @@ class StudentsAdapter(
         holder: StudentsViewHolder,
         position: Int
     ) {
-        val itemsViewModel = userList[position]
         holder.render(userList[position], onItemSelected)
     }
     

@@ -1,7 +1,7 @@
 package com.example.elormovpmdm.data.network
 
 import com.example.elormovpmdm.data.login.LoginApiService
-import com.example.elormovpmdm.data.students.StudentsApiService
+import com.example.elormovpmdm.data.students.UsersApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://10.5.104.176:8080/")
+            .baseUrl("http://192.168.0.12:8080/")
             .addConverterFactory(
                 GsonConverterFactory.create())
             .build()
@@ -28,11 +28,10 @@ object NetworkModule {
     fun provideLoginApiService(retrofit: Retrofit): LoginApiService {
         return retrofit.create(LoginApiService::class.java)
     }
-
-    // TE FALTA ESTO:
+    
     @Provides
     @Singleton
-    fun provideStudentsApiService(retrofit: Retrofit): StudentsApiService {
-        return retrofit.create(StudentsApiService::class.java)
+    fun provideStudentsApiService(retrofit: Retrofit): UsersApiService {
+        return retrofit.create(UsersApiService::class.java)
     }
 }

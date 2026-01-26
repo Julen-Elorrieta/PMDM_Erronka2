@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elormovpmdm.R
-import com.example.elormovpmdm.domain.User
+import com.example.elormovpmdm.domain.model.UserResponse
 
 class TimetableAdapter(
-    private var userList: List<User> = emptyList(),
-    private val onItemSelected: (User) -> Unit
+    private var userList: List<UserResponse> = emptyList(),
+    private val onItemSelected: (UserResponse) -> Unit
 ): RecyclerView.Adapter<TimetableViewHolder>() {
     
     override fun onCreateViewHolder(
@@ -22,7 +22,7 @@ class TimetableAdapter(
         )
     }
 
-    fun updateList(listUpdated: List<User>) {
+    fun updateList(listUpdated: List<UserResponse>) {
         userList = listUpdated
         notifyDataSetChanged()
     }

@@ -3,15 +3,14 @@ package com.example.elormovpmdm.ui.students.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elormovpmdm.databinding.UserCardBinding
-import com.example.elormovpmdm.domain.User
 import com.example.elormovpmdm.domain.model.UserResponse
 
 class StudentsViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = UserCardBinding.bind(view)
     
     fun render(user: UserResponse, onItemSelected: (UserResponse) -> Unit) {
-        val name: String = user.nombre
-        val surname: String = user.apellidos
+        val name: String = user.nombre ?: "Sin nombre"
+        val surname: String = user.apellidos ?: ""
 
         binding.tvName.text = "$name $surname"
         binding.tvEmail.text = user.email
