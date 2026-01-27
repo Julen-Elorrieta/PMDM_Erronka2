@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 class ProfileActivity : BaseActivity() {
     
     private lateinit var binding: ActivityProfileBinding
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,6 +39,11 @@ class ProfileActivity : BaseActivity() {
     private fun initComponent() {
         binding.btnBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnCamera.setOnClickListener {
+            val intent = Intent(this, CameraActivity::class.java)
             startActivity(intent)
         }
         

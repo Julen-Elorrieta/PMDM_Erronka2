@@ -8,6 +8,6 @@ interface UsersApiService {
     @GET("users/getAlumnos")
     suspend fun getStudents(): Response<List<UserResponse>>
     
-    @GET("users/getAllUsers")
+    @GET("users/getUsers")
     suspend fun getAllUsers(): Response<List<UserResponse>>
 }

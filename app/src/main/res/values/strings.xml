@@ -40,6 +40,9 @@
     <string name="basque">Euskera</string>
     <string name="logout">Cerrar Sesión</string>
 
+    <!-- activity_camera -->
+    <string name="permision_denied">Por favor, acepte los permisos</string>
+
     <!-- fragment_schedule -->
     <string name="my_timetable">Mi horario</string>
     <string name="my_timetable_description">Pulsa para ver tu horario</string>

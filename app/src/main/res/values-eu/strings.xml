@@ -29,5 +29,6 @@
     <string name="student_login_title">Ikasle ataria</string>
     <string name="teacher_login_subtitle">Hasi saioa zure klaseak kudeatzeko eta ikasleen aurrerapena ikusteko</string>
     <string name="student_login_subtitle">Hasi zure ordutegia kudeatzeko saioa</string>
+    <string name="permision_denied">Mesedez, onartu baimenak</string>
     <string name="my_timetable">Nire ordutegia</string>
 </resources>

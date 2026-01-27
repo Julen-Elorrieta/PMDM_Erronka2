@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor">
 
-    <!-- hay   que poner android:layout_height="?attr/actionBarSize"-->
     <FrameLayout
         android:id="@+id/tollBar"
         android:layout_width="0dp"
@@ -70,14 +69,17 @@
             android:padding="15dp">
         </ImageView>
 
-        <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:background="@drawable/profile_bg"
-        android:backgroundTint="?attr/android:textColorPrimary"
-        android:padding="8dp"
-        android:src="@android:drawable/ic_menu_camera" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btnCamera"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|end"
+            android:background="@drawable/profile_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
+            android:src="@android:drawable/ic_menu_camera"
+            android:clickable="true"
+            android:focusable="true">
+        </com.google.android.material.imageview.ShapeableImageView>
     </FrameLayout>
 
     <TextView

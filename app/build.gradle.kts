@@ -63,6 +63,18 @@ dependencies {
     val retrofitVersion = "2.9.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+
+    //CameraX
+    val cameraVersion = "1.2.3" // O la versión que prefieras usar
+
+    implementation("androidx.camera:camera-core:$cameraVersion")
+    implementation("androidx.camera:camera-camera2:$cameraVersion")
+    implementation("androidx.camera:camera-lifecycle:$cameraVersion") // Corregido: solo un ':'
+    implementation("androidx.camera:camera-view:$cameraVersion")
+    implementation("androidx.camera:camera-extensions:$cameraVersion")
+
+    // Guava (necesario a veces para ListenableFuture)
+    implementation("com.google.guava:guava:32.1.3-android")
     
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

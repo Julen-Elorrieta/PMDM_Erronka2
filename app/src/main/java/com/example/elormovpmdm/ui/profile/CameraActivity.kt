@@ -1,0 +1,171 @@
+package com.example.elormovpmdm.ui.profile
+
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.elormovpmdm.BaseActivity
+import com.example.elormovpmdm.R
+import com.example.elormovpmdm.databinding.ActivityCameraBinding
+
+class CameraActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityCameraBinding
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            startCamera()
+        } else {
+            Toast.makeText(
+                this,
+                R.string.permision_denied,
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+    private var imageCapture: ImageCapture? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+
+        binding = ActivityCameraBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        if (checkCameraPermission()) {
+            startCamera()
+        } else {
+            requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+        }
+
+        initComponents()
+    }
+
+    private fun startCamera () {
+        val cameraProviderFuture  = ProcessCameraProvider.getInstance(this)
+
+        imageCapture = ImageCapture.Builder()
+            .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+            .setTargetRotation(binding.previewCamera.display.rotation)
+            .build()
+
+        cameraProviderFuture.addListener({
+            val cameraProvider = cameraProviderFuture.get()
+            val preview = Preview.Builder().build().also {
+                it.setSurfaceProvider(binding.previewCamera.surfaceProvider)
+            }
+
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+            try {
+                cameraProvider.unbindAll()
+                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
+            } catch (e: Exception) {
+                Log.i("GVA", "Error al abrir la camara")
+            }
+        }, ContextCompat.getMainExecutor(this))
+    }
+
+    private fun initComponents() {
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnTakePhoto.setOnClickListener {
+            val imageCapture = imageCapture ?: return@setOnClickListener
+
+            imageCapture.takePicture(
+                ContextCompat.getMainExecutor(this),
+                object : ImageCapture.OnImageCapturedCallback() {
+                    override fun onCaptureSuccess(image: ImageProxy) {
+                        showPreview(image)
+                    }
+
+                    override fun onError(exception: ImageCaptureException) {
+                        Log.i("GVA", "Error: ${exception.message}")
+                    }
+                }
+            )
+        }
+
+        binding.btnCancell.setOnClickListener {
+            setPreviewMode(false)
+        }
+
+        binding.btnConfirm.setOnClickListener {
+            Toast.makeText(this, "Imagen confirmada", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showPreview(image: ImageProxy) {
+        val buffer = image.planes[0].buffer
+        val bytes = ByteArray(buffer.remaining())
+        buffer.get(bytes)
+
+        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+
+        val matrix = Matrix().apply {
+            postRotate(image.imageInfo.rotationDegrees.toFloat())
+        }
+
+        val rotatedBitmap = Bitmap.createBitmap(
+            bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true
+        )
+
+        runOnUiThread {
+            binding.ivImage.setImageBitmap(rotatedBitmap)
+            setPreviewMode(true)
+        }
+
+        image.close()
+    }
+
+    private fun setPreviewMode(isPreviewing: Boolean) {
+        if (isPreviewing) {
+           binding.previewCamera.visibility = View.GONE
+           binding.flButton.visibility = View.GONE
+
+           binding.ivImage.visibility = View.VISIBLE
+           binding.flConfirmation.visibility = View.VISIBLE
+        } else {
+            binding.previewCamera.visibility = View.VISIBLE
+            binding.flButton.visibility = View.VISIBLE
+
+            binding.ivImage.visibility = View.GONE
+            binding.flConfirmation.visibility = View.GONE
+        }
+    }
+
+    private fun checkCameraPermission(): Boolean {
+        return PermissionChecker.checkSelfPermission(
+            this,
+            android.Manifest.permission.CAMERA
+        ) == PermissionChecker.PERMISSION_GRANTED
+    }
+}
