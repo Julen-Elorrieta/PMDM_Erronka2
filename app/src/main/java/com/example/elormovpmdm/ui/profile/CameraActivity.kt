@@ -29,6 +29,11 @@ import com.example.elormovpmdm.databinding.ActivityCameraBinding
 class CameraActivity : BaseActivity() {
 
     private lateinit var binding: ActivityCameraBinding
+    private var lensFacing = CameraSelector.DEFAULT_BACK_CAMERA
+    private var camera: androidx.camera.core.Camera? = null
+    private var isFlashOn = false
+    private var capturedBitmap: Bitmap? = null
+    
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
@@ -80,11 +85,9 @@ class CameraActivity : BaseActivity() {
                 it.setSurfaceProvider(binding.previewCamera.surfaceProvider)
             }
 
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
             try {
                 cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
+                cameraProvider.bindToLifecycle(this, lensFacing, preview, imageCapture)
             } catch (e: Exception) {
                 Log.i("GVA", "Error al abrir la camara")
             }
@@ -95,6 +98,19 @@ class CameraActivity : BaseActivity() {
         binding.btnBack.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
+        }
+        
+        binding.btnFlash.setOnClickListener { 
+            if (camera?.cameraInfo?.hasFlashUnit() == true) {
+                isFlashOn = !isFlashOn
+                camera?.cameraControl?.enableTorch(isFlashOn)
+                val icon = if (isFlashOn) {
+                    R.drawable.flash_on_ic
+                } else {
+                    R.drawable.flash_off_ic
+                }
+                binding.btnFlash.setImageResource(icon)
+            }
         }
 
         binding.btnTakePhoto.setOnClickListener {
@@ -113,13 +129,25 @@ class CameraActivity : BaseActivity() {
                 }
             )
         }
+        
+        binding.btnCameraSwitch.setOnClickListener { 
+            lensFacing = if (lensFacing == CameraSelector.DEFAULT_BACK_CAMERA) {
+                CameraSelector.DEFAULT_FRONT_CAMERA
+            } else {
+                CameraSelector.DEFAULT_BACK_CAMERA
+            }
+            startCamera()
+        }
 
         binding.btnCancell.setOnClickListener {
             setPreviewMode(false)
         }
 
         binding.btnConfirm.setOnClickListener {
-            Toast.makeText(this, "Imagen confirmada", Toast.LENGTH_SHORT).show()
+            capturedBitmap?.let { bitmap -> 
+                saveImage(bitmap)
+                finish()
+            }
         }
     }
 
@@ -137,7 +165,9 @@ class CameraActivity : BaseActivity() {
         val rotatedBitmap = Bitmap.createBitmap(
             bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true
         )
-
+        
+        capturedBitmap = rotatedBitmap
+        
         runOnUiThread {
             binding.ivImage.setImageBitmap(rotatedBitmap)
             setPreviewMode(true)
@@ -148,8 +178,8 @@ class CameraActivity : BaseActivity() {
 
     private fun setPreviewMode(isPreviewing: Boolean) {
         if (isPreviewing) {
-           binding.previewCamera.visibility = View.GONE
-           binding.flButton.visibility = View.GONE
+           binding.previewCamera.visibility = View.INVISIBLE
+           binding.flButton.visibility = View.INVISIBLE
 
            binding.ivImage.visibility = View.VISIBLE
            binding.flConfirmation.visibility = View.VISIBLE
@@ -157,8 +187,8 @@ class CameraActivity : BaseActivity() {
             binding.previewCamera.visibility = View.VISIBLE
             binding.flButton.visibility = View.VISIBLE
 
-            binding.ivImage.visibility = View.GONE
-            binding.flConfirmation.visibility = View.GONE
+            binding.ivImage.visibility = View.INVISIBLE
+            binding.flConfirmation.visibility = View.INVISIBLE
         }
     }
 
@@ -167,5 +197,31 @@ class CameraActivity : BaseActivity() {
             this,
             android.Manifest.permission.CAMERA
         ) == PermissionChecker.PERMISSION_GRANTED
+    }
+    
+    private fun saveImage(bitmap: Bitmap) {
+        val name = "IMG_${System.currentTimeMillis()}.jpg"
+        val contentValues = android.content.ContentValues().apply { 
+            put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, name)
+            put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+            put(android.provider.MediaStore.Images.Media.RELATIVE_PATH, "Pictures/ElorMov")
+        }
+        
+        val contentResolver = contentResolver
+        val uri = contentResolver.insert(
+            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues
+        )
+        
+        uri?.let { targetUri ->
+            try {
+                contentResolver.openOutputStream(targetUri)?.use { outputStream -> 
+                    if (bitmap.compress(Bitmap.CompressFormat.JPEG, 95, outputStream)) {
+                        Toast.makeText(this, "Imagen guardada en galería", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("GVA", "Error al guardar: ${e.message}")
+            }
+        }
     }
 }

@@ -31,4 +31,25 @@
 
     <color name="orange">#ff6c37</color>
     <color name="red">#D32F2F</color>
+    
+    <!-- Subjects -->
+    <color name="mod1">#fff59d</color>
+    <color name="mod2">#fff9c4</color>
+    <color name="mod3">#fff176</color>
+    <color name="mod4">#ffe082</color>
+    <color name="mod5">#ffe0b2</color>
+    <color name="mod6">#ffcc80</color>
+    <color name="mod7">#ffd54f</color>
+    <color name="mod8">#ffcdd2</color>
+    <color name="mod9">#f8bbd0</color>
+    <color name="mod10">#f48fb1</color>
+    <color name="mod11">#d1c4e9</color>
+    <color name="mod12">#b39ddb</color>
+    <color name="mod13">#b2dfdb</color>
+    <color name="mod14">#80cbc4</color>
+    <color name="mod15">#a5d6a7</color>
+    <color name="mod16">#e0e0e0</color>
+    <color name="mod17">#f5f5f5</color>
+    <color name="mod18">#ffe4e1</color>
+    <color name="mod19">#fff0f5</color>
 </resources>

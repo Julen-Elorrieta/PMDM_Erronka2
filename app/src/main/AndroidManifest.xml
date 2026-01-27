@@ -5,6 +5,11 @@
     <!--Permiso de uso de cámara-->
     <uses-permission android:name="android.permission.CAMERA"></uses-permission>
     <uses-feature android:name="android.hardware.camera.any"></uses-feature>
+    
+    <!-- Permiso de almacenamiento -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    
     <!-- Permiso para que la aplicacion pueda usar internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 

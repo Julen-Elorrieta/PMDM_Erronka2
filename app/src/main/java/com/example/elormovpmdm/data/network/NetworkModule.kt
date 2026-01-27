@@ -16,8 +16,10 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
+        val ipHome: String = "192.168.0.12"
+        val ipClase: String = "10.5.104.176"
         return Retrofit.Builder()
-            .baseUrl("http://10.5.104.176:8080/")
+            .baseUrl("http://$ipHome:8080/")
             .addConverterFactory(
                 GsonConverterFactory.create())
             .build()

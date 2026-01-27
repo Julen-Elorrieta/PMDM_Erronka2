@@ -1,4 +1,4 @@
-package com.example.elormovpmdm.ui.timetable
+package com.example.elormovpmdm.ui.schedule
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,25 +10,26 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.elormovpmdm.databinding.FragmentTimetableBinding
+import com.example.elormovpmdm.databinding.FragmentSchedulesBinding
+import com.example.elormovpmdm.databinding.ScheduleBottomsheetlayoutBinding
 import com.example.elormovpmdm.domain.model.UserResponse
-import com.example.elormovpmdm.ui.timetable.adapter.TimetableAdapter
+import com.example.elormovpmdm.ui.schedule.adapter.SchedulesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TimetableFragment : Fragment() {
+class SchedulesFragment : Fragment() {
 
-    private var _binding: FragmentTimetableBinding? = null
+    private var _binding: FragmentSchedulesBinding? = null
     private val binding get() = _binding!!
-    private val timetableViewModel: TimetableViewModel by viewModels()
-    private lateinit var timetableAdapter: TimetableAdapter
+    private val schedulesViewModel: SchedulesViewModel by viewModels()
+    private lateinit var schedulesAdapter: SchedulesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTimetableBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentSchedulesBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -39,20 +40,24 @@ class TimetableFragment : Fragment() {
     }
 
     private fun initComponents() {
-        timetableAdapter = TimetableAdapter(onItemSelected = { onItemSelected(it) })
+        schedulesAdapter = SchedulesAdapter(onItemSelected = { onItemSelected(it) })
         binding.rvTimetable.layoutManager = GridLayoutManager(context, 1)
-        binding.rvTimetable.adapter = timetableAdapter
+        binding.rvTimetable.adapter = schedulesAdapter
     }
 
     private fun onItemSelected(user: UserResponse) {
-                
+        val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(requireContext())
+        val sheetBinding = ScheduleBottomsheetlayoutBinding.inflate(layoutInflater)
+        
+        dialog.setContentView(sheetBinding.root)
+        dialog.show()
     }
 
     private fun initUI() {
         lifecycleScope.launch { 
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                timetableViewModel.users.collect { 
-                    timetableAdapter.updateList(it)
+                schedulesViewModel.users.collect { 
+                    schedulesAdapter.updateList(it)
                 }
             }
         }

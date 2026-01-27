@@ -1,4 +1,4 @@
-package com.example.elormovpmdm.ui.timetable.adapter
+package com.example.elormovpmdm.ui.schedule.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.elormovpmdm.R
 import com.example.elormovpmdm.domain.model.UserResponse
 
-class TimetableAdapter(
+class SchedulesAdapter(
     private var userList: List<UserResponse> = emptyList(),
     private val onItemSelected: (UserResponse) -> Unit
-): RecyclerView.Adapter<TimetableViewHolder>() {
+): RecyclerView.Adapter<SchedulesViewHolder>() {
     
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TimetableViewHolder {
-        return TimetableViewHolder(
+    ): SchedulesViewHolder {
+        return SchedulesViewHolder(
             LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.user_card, parent, false)
@@ -28,7 +28,7 @@ class TimetableAdapter(
     }
     
     override fun onBindViewHolder(
-        holder: TimetableViewHolder,
+        holder: SchedulesViewHolder,
         position: Int
     ) {
         holder.render(userList[position], onItemSelected)

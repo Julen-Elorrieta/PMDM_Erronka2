@@ -1,9 +1,10 @@
-package com.example.elormovpmdm.ui.timetable
+package com.example.elormovpmdm.ui.schedule
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.elormovpmdm.data.students.UsersApiService
+import com.example.elormovpmdm.domain.SessionManager
 import com.example.elormovpmdm.domain.model.UserResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +15,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class TimetableViewModel @Inject constructor(private val usersApiService: UsersApiService): ViewModel() {
+class SchedulesViewModel @Inject constructor(private val usersApiService: UsersApiService): ViewModel() {
     private val _users = MutableStateFlow<List<UserResponse>> (emptyList())
     val users: StateFlow<List<UserResponse>> = _users
     
@@ -26,7 +27,7 @@ class TimetableViewModel @Inject constructor(private val usersApiService: UsersA
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    usersApiService.getAllUsers()
+                    usersApiService.getAllUsers(SessionManager.currentUser!!.id)
                 }
                 
                 if (response.isSuccessful) {
