@@ -13,7 +13,6 @@
     <string name="email_hint" translatable="false">professor@elorrieta-errekamari.com</string>
     <string name="password">Contraseña</string>
     <string name="password_hint" translatable="false">••••••••</string>
-    <string name="password_forgot">¿Olvidaste la contraseña?</string>
     <string name="login">Iniciar Sesión</string>
 
     <!-- activity_teacher_login -->

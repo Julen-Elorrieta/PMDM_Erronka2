@@ -8,7 +8,7 @@
     android:background="?attr/colorPrimarySurface">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/mainUserCard"
+        android:id="@+id/currentUserCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,7 +21,7 @@
         android:elevation="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/llUser"
+            android:id="@+id/clUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp">
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainUserCard"
+        app:layout_constraintTop_toBottomOf="@id/currentUserCard"
         android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="16dp"
         app:dividerColor="?attr/colorAccent">

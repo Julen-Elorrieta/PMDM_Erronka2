@@ -19,7 +19,7 @@ object NetworkModule {
         val ipHome: String = "192.168.0.12"
         val ipClase: String = "10.5.104.176"
         return Retrofit.Builder()
-            .baseUrl("http://$ipHome:8080/")
+            .baseUrl("http://$ipClase:8080/")
             .addConverterFactory(
                 GsonConverterFactory.create())
             .build()

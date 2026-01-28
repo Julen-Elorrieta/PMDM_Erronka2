@@ -16,24 +16,30 @@ import com.example.elormovpmdm.BaseActivity
 import com.example.elormovpmdm.ui.main.MainActivity
 import com.example.elormovpmdm.R
 import com.example.elormovpmdm.data.login.LoginState
-import com.example.elormovpmdm.databinding.ActivityTeacherLoginBinding
+import com.example.elormovpmdm.databinding.ActivityLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityTeacherLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     private val loginViewModel: LoginViewModel by viewModels()
+    private val _other = MutableStateFlow(false)
+    val other: StateFlow<Boolean> = _other.asStateFlow()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        binding = ActivityTeacherLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.loginTeacher)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_login)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -56,6 +62,10 @@ class LoginActivity : BaseActivity() {
                 Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show()
             }
         }
+        binding.tvOtherOption.setOnClickListener {
+            Log.i("GVA", "tvOtherOption pulsado")
+            _other.value = !_other.value
+        }
     }
 
     private fun handleLoginSuccess () {
@@ -64,6 +74,24 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun initUI() {
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                other.collect(){ value ->
+                    if (value) {
+                        binding.tvTitle.text = getString(R.string.student_login_title)
+                        binding.tvSubtitle.text = getString(R.string.student_login_subtitle)
+                        binding.tvOtherOption.text = getString(R.string.student_teacher_option)
+                    } else {
+                        binding.tvTitle.text = getString(R.string.teacher_login_title)
+                        binding.tvSubtitle.text = getString(R.string.teacher_login_subtitle)
+                        binding.tvOtherOption.text = getString(R.string.teacher_student_option)
+                    }
+                }
+            }
+        }
+
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 loginViewModel.state.collect { state ->

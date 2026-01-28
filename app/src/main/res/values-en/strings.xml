@@ -3,7 +3,6 @@
     <string name="app_name">ElorMovPMDM</string>
     <string name="meetings">Meetings</string>
     <string name="password">Password</string>
-    <string name="password_forgot">Forgot password?</string>
     <string name="login">Log In</string>
     <string name="student_teacher_option">Are you a teacher? Log in here.</string>
     <string name="profile_title">My Profile</string>
