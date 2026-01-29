@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.elormovpmdm.data.students.UsersApiService
+import com.example.elormovpmdm.domain.SessionManager
 import com.example.elormovpmdm.domain.model.UserResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +27,7 @@ class StudentsViewModel @Inject constructor(private val usersApiService: UsersAp
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                    usersApiService.getStudents()
+                    usersApiService.getStudentsFromTeacher(SessionManager.currentUser!!.id)
                 }
 
                 if (response.isSuccessful) {

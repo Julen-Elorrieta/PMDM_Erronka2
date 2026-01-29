@@ -7,5 +7,5 @@ data class Schedule(
     val dia: String,
     val hora: Int,
     val profe_id: Int,
-    val modulo_id: Int
+    val modulos: Module
 )

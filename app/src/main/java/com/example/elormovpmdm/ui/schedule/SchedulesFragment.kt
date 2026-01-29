@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.elormovpmdm.databinding.FragmentSchedulesBinding
+import com.example.elormovpmdm.domain.SessionManager
 import com.example.elormovpmdm.domain.model.UserResponse
 import com.example.elormovpmdm.ui.schedule.adapter.SchedulesAdapter
 import com.example.elormovpmdm.ui.schedule.userSchedule.UserScheduleActivity
@@ -46,12 +47,15 @@ class SchedulesFragment : Fragment() {
         binding.rvTimetable.adapter = schedulesAdapter
         binding.currentUserCard.setOnClickListener {
             val intent = Intent(requireActivity(), UserScheduleActivity::class.java)
+            intent.putExtra("user_id", SessionManager.currentUser?.id)
             startActivity(intent)
         }
     }
 
     private fun onItemSelected(user: UserResponse) {
-
+        val intent = Intent(requireActivity(), UserScheduleActivity::class.java)
+        intent.putExtra("user_id", user.id)
+        startActivity(intent)
     }
 
     private fun initUI() {

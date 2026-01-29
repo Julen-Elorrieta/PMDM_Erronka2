@@ -9,21 +9,46 @@
     android:background="@drawable/bottom_nav_bg"
     android:padding="16dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/quitCross"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolBar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/cross_ic"
-        android:clickable="true"
-        android:focusable="true"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
+        android:orientation="horizontal"
+        android:background="?attr/backgroundColor"
+        android:elevation="8dp">
+
+        <TextView
+            android:id="@+id/tvToolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/timetable"
+            android:textColor="?attr/android:textColorPrimary"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:textStyle="bold"
+            android:textSize="25sp">
+        </TextView>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btnQuit"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/cross_ic"
+            android:clickable="true"
+            android:focusable="true"
+            app:contentPadding="10dp"/>
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clDay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/quitCross"
+        app:layout_constraintTop_toBottomOf="@id/toolBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal"
@@ -72,20 +97,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clDay"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="30dp">
         <!-- First hour -->
         <TextView
             android:id="@+id/lblFirstHour"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvFirstHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvFirstHour"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
+            android:gravity="center"
             android:text="08:00"
             android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
             android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
             android:padding="5dp">
         </TextView>
         <TextView
@@ -109,14 +136,17 @@
         <TextView
             android:id="@+id/lblSecondHour"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/lblFirstHour"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvSecondHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvSecondHour"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
+            android:gravity="center"
             android:text="09:00"
             android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
             android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
             android:padding="5dp">
         </TextView>
         <TextView
@@ -140,14 +170,17 @@
         <TextView
             android:id="@+id/lblThirdHour"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/lblSecondHour"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvThirdHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvThirdHour"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
+            android:gravity="center"
             android:text="10:00"
             android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
             android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
             android:padding="5dp">
         </TextView>
         <TextView
@@ -171,11 +204,12 @@
         <TextView
             android:id="@+id/lblBreak"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/lblThirdHour"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvBreak"
+            app:layout_constraintBottom_toBottomOf="@id/tvBreak"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
+            android:gravity="center"
             android:text="11:00"
             android:textSize="25sp"
             android:background="@drawable/schedule_item_bg"
@@ -204,18 +238,21 @@
         <TextView
             android:id="@+id/lblFourthHour"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/lblBreak"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvFourthHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvFourthHour"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
+            android:gravity="center"
             android:text="11:30"
             android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
             android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
             android:padding="5dp">
         </TextView>
         <TextView
-            android:id="@+id/tvFourthHourt"
+            android:id="@+id/tvFourthHour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/tvBreak"
@@ -235,21 +272,24 @@
         <TextView
             android:id="@+id/lblFifthHour"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/lblFourthHour"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvFifthHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvFifthHour"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
+            android:gravity="center"
             android:text="12:30"
             android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
             android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
             android:padding="5dp">
         </TextView>
         <TextView
-            android:id="@+id/tvFifthHourt"
+            android:id="@+id/tvFifthHour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tvFourthHourt"
+            app:layout_constraintTop_toBottomOf="@id/tvFourthHour"
             app:layout_constraintStart_toEndOf="@id/lblFifthHour"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="10dp"
@@ -266,21 +306,24 @@
         <TextView
             android:id="@+id/lblSixthHour"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/lblFifthHour"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvSixthHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvSixthHour"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
+            android:gravity="center"
             android:text="13:30"
             android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
             android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
             android:padding="5dp">
         </TextView>
         <TextView
-            android:id="@+id/tvSixthHourt"
+            android:id="@+id/tvSixthHour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tvFifthHourt"
+            app:layout_constraintTop_toBottomOf="@id/tvFifthHour"
             app:layout_constraintStart_toEndOf="@id/lblSixthHour"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="10dp"

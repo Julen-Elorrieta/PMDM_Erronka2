@@ -45,7 +45,7 @@ class LoginViewModel @Inject constructor(
                     _state.value = LoginState.Success
                     SessionManager.currentUser = user
                 } else {
-                    _state.value = LoginState.Error("Respuesta vaccía del servidor")
+                    _state.value = LoginState.Error("Respuesta vacía del servidor")
                 }
             } else {
                 // Esto nos dirá si es 404 (Ruta mal), 401 (Login mal) o 500 (Crash en Java)

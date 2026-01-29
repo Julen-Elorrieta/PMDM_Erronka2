@@ -30,4 +30,5 @@
     <string name="student_login_subtitle">Log in to manage your schedule</string>
     <string name="permision_denied">Please accept the permissions</string>
     <string name="my_timetable">My timetable</string>
+    <string name="descanso">Break</string>
 </resources>

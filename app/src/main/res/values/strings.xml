@@ -42,7 +42,7 @@
     <!-- activity_camera -->
     <string name="permision_denied">Por favor, acepte los permisos</string>
 
-    <!-- fragment_schedule -->
+    <!-- activity_schedule -->
     <string name="my_timetable">Mi horario</string>
     <string name="my_timetable_description">Pulsa para ver tu horario</string>
     <string name="monday">Lunes</string>
@@ -50,5 +50,6 @@
     <string name="wednesday">Miércoles</string>
     <string name="thursday">Jueves</string>
     <string name="friday">Viernes</string>
+    <string name="descanso">Descanso</string>
 
 </resources>

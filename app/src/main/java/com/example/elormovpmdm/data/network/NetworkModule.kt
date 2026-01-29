@@ -1,6 +1,7 @@
 package com.example.elormovpmdm.data.network
 
 import com.example.elormovpmdm.data.login.LoginApiService
+import com.example.elormovpmdm.data.schedule.ScheduleApiService
 import com.example.elormovpmdm.data.students.UsersApiService
 import dagger.Module
 import dagger.Provides
@@ -35,5 +36,11 @@ object NetworkModule {
     @Singleton
     fun provideStudentsApiService(retrofit: Retrofit): UsersApiService {
         return retrofit.create(UsersApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideScheduleApiService(retrofit: Retrofit): ScheduleApiService {
+        return retrofit.create(ScheduleApiService::class.java)
     }
 }
