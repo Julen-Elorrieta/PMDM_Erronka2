@@ -12,7 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.elormovpmdm.databinding.FragmentStudentsBinding
 import com.example.elormovpmdm.databinding.StudentBottomsheetlayoutBinding
-import com.example.elormovpmdm.domain.model.UserResponse
+import com.example.elormovpmdm.domain.model.User
 import com.example.elormovpmdm.ui.students.adapter.StudentsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -50,7 +50,7 @@ class StudentsFragment : Fragment() {
         binding.rvStudents.adapter = studentsAdapter
     }
     
-    private fun onItemSelected(user: UserResponse) {
+    private fun onItemSelected(user: User) {
         val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(requireContext())
         val sheetBinding = StudentBottomsheetlayoutBinding.inflate(layoutInflater)
         

@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elormovpmdm.R
-import com.example.elormovpmdm.domain.model.UserResponse
+import com.example.elormovpmdm.domain.model.User
 
 class SchedulesAdapter(
-    private var userList: List<UserResponse> = emptyList(),
-    private val onItemSelected: (UserResponse) -> Unit
+    private var userList: List<User> = emptyList(),
+    private val onItemSelected: (User) -> Unit
 ): RecyclerView.Adapter<SchedulesViewHolder>() {
     
     override fun onCreateViewHolder(
@@ -22,7 +22,7 @@ class SchedulesAdapter(
         )
     }
 
-    fun updateList(listUpdated: List<UserResponse>) {
+    fun updateList(listUpdated: List<User>) {
         userList = listUpdated
         notifyDataSetChanged()
     }

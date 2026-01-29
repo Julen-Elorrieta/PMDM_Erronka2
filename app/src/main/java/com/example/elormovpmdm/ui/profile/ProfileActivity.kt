@@ -11,13 +11,12 @@ import com.example.elormovpmdm.BaseActivity
 import com.example.elormovpmdm.ui.main.MainActivity
 import com.example.elormovpmdm.R
 import com.example.elormovpmdm.databinding.ActivityProfileBinding
-import com.example.elormovpmdm.domain.SessionManager
-import com.example.elormovpmdm.domain.model.UserResponse
+import com.example.elormovpmdm.domain.model.User
+import com.example.elormovpmdm.ui.login.LoginActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class ProfileActivity : BaseActivity() {
-    
     private lateinit var binding: ActivityProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,21 +72,27 @@ class ProfileActivity : BaseActivity() {
                 settingsDataStore.saveDarkMode(!isDark)
             }
         }
+        
+        binding.btnLogout.setOnClickListener { 
+            lifecycleScope.launch { 
+                sessionManager.clearSession()
+                val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun initUI() {
+        val user: User = sessionManager.currentUser.value!!
 
-        val user: UserResponse? = SessionManager.currentUser
-
-        val email: String? = user?.email
-        val userName: String? = user?.username
-        val name: String? = user?.nombre
-        val surname: String? = user?.apellidos
-        val id: Int? = user?.id
-        val address: String? = user?.direccion
-        val phone: String? = user?.telefono1
-
-
+        val email: String = user.email
+        val userName: String = user.username
+        val name: String = user.nombre
+        val surname: String = user.apellidos
+        val id: Int = user.id
+        val address: String = user.direccion
+        val phone: String = user.telefono1
+        
         binding.nombreProfesor.text = "$name $surname"
         binding.tvUserName.text = userName
         binding.userID.text = id.toString()

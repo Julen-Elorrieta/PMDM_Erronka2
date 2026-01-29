@@ -1,23 +1,19 @@
 package com.example.elormovpmdm.ui.schedule.userSchedule
 
 import android.content.Intent
-import android.icu.util.LocaleData
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.elormovpmdm.BaseActivity
 import com.example.elormovpmdm.R
 import com.example.elormovpmdm.databinding.ActivityScheduleBinding
 import com.example.elormovpmdm.domain.model.Schedule
-import com.example.elormovpmdm.domain.model.UserResponse
 import com.example.elormovpmdm.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -48,11 +44,6 @@ class UserScheduleActivity : BaseActivity() {
     }
 
     private fun initComponents() {
-        binding.btnQuit.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
         binding.btnBack.setOnClickListener {
             if (currentIndex > 0) {
                 currentIndex--

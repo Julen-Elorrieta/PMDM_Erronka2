@@ -13,14 +13,18 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.elormovpmdm.databinding.FragmentSchedulesBinding
 import com.example.elormovpmdm.domain.SessionManager
-import com.example.elormovpmdm.domain.model.UserResponse
+import com.example.elormovpmdm.domain.model.User
 import com.example.elormovpmdm.ui.schedule.adapter.SchedulesAdapter
 import com.example.elormovpmdm.ui.schedule.userSchedule.UserScheduleActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SchedulesFragment : Fragment() {
+    
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     private var _binding: FragmentSchedulesBinding? = null
     private val binding get() = _binding!!
@@ -47,12 +51,12 @@ class SchedulesFragment : Fragment() {
         binding.rvTimetable.adapter = schedulesAdapter
         binding.currentUserCard.setOnClickListener {
             val intent = Intent(requireActivity(), UserScheduleActivity::class.java)
-            intent.putExtra("user_id", SessionManager.currentUser?.id)
+            intent.putExtra("user_id", sessionManager.currentUser.value!!.id)
             startActivity(intent)
         }
     }
 
-    private fun onItemSelected(user: UserResponse) {
+    private fun onItemSelected(user: User) {
         val intent = Intent(requireActivity(), UserScheduleActivity::class.java)
         intent.putExtra("user_id", user.id)
         startActivity(intent)

@@ -1,8 +1,6 @@
 package com.example.elormovpmdm.domain.model
 
-import java.sql.Timestamp
-
-data class UserResponse(
+data class User(
     val id: Int,
     val email: String,
     val username: String,

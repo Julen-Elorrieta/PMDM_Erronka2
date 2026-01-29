@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.elormovpmdm.BaseActivity
 import com.example.elormovpmdm.ui.main.MainActivity
 import com.example.elormovpmdm.R
@@ -69,6 +70,11 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun handleLoginSuccess () {
+        /*
+        findNavController().navigate(
+            HoroscopeFragmentDirections.actionHoroscopeFragmentToHoroscopeDetailActivity(type)
+        )
+        */
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }

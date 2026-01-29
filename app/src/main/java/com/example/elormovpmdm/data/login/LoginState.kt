@@ -1,7 +1,5 @@
 package com.example.elormovpmdm.data.login
 
-import com.example.elormovpmdm.domain.model.UserResponse
-
 sealed class LoginState {
     object Loading: LoginState()
     object Success: LoginState()

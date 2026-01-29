@@ -14,6 +14,7 @@ import com.example.elormovpmdm.databinding.ActivityMainBinding
 import com.example.elormovpmdm.domain.SessionManager
 import com.example.elormovpmdm.ui.profile.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
@@ -48,7 +49,7 @@ class MainActivity : BaseActivity() {
 
         val navGraph = navController.navInflater.inflate(R.navigation.main_graph)
         
-        if (SessionManager.currentUser?.tipoId == 4) {
+        if (sessionManager.currentUser.value?.tipoId == 4) {
             binding.bottomBar.menu.clear()
             binding.bottomBar.inflateMenu(R.menu.student_bottom_menu)
             navGraph.setStartDestination(R.id.schedulesFragment)

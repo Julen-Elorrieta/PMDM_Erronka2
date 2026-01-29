@@ -17,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginApiService: LoginApiService
+    private val loginApiService: LoginApiService,
+    private val sessionManager: SessionManager
 ): ViewModel() {
     private val _state = MutableStateFlow<LoginState>(LoginState.Idle)
     val state: StateFlow<LoginState> = _state
@@ -43,7 +44,7 @@ class LoginViewModel @Inject constructor(
                 val user = result.body()
                 if (user != null) {
                     _state.value = LoginState.Success
-                    SessionManager.currentUser = user
+                    sessionManager.saveUser(user)
                 } else {
                     _state.value = LoginState.Error("Respuesta vacía del servidor")
                 }

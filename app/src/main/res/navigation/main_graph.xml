@@ -20,4 +20,9 @@
         android:name="com.example.elormovpmdm.ui.meetings.MeetingsFragment"
         android:label="fragment_meetings"
         tools:layout="@layout/fragment_meetings" />
+    <fragment
+        android:id="@+id/teachersSchedulesFragment"
+        android:name="com.example.elormovpmdm.ui.schedule.TeachersSchedulesFragment"
+        android:label="fragment_teachers_schedules"
+        tools:layout="@layout/fragment_teachers_schedules" />
 </navigation>

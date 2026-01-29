@@ -1,11 +1,14 @@
-package com.example.elormovpmdm.data.network
+package com.example.elormovpmdm.data.modules
 
+import android.content.Context
+import com.example.elormovpmdm.SettingsDataStore
 import com.example.elormovpmdm.data.login.LoginApiService
 import com.example.elormovpmdm.data.schedule.ScheduleApiService
 import com.example.elormovpmdm.data.students.UsersApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

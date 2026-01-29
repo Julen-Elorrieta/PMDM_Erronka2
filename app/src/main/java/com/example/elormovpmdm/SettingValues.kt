@@ -1,11 +1,12 @@
 package com.example.elormovpmdm
 
-import android.R
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.elormovpmdm.domain.model.User
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -13,10 +14,12 @@ private val Context.dataStore by preferencesDataStore(name = "settings_prefs")
 
 class SettingsDataStore(private val context: Context) {
     
+    private val gson = Gson()
+    
     companion object {
         val DARK_MODE_KEY = booleanPreferencesKey("dark_mode")
         val LANGUAGE_KEY = stringPreferencesKey("language_code")
-        
+        val USER_DATA_KEY = stringPreferencesKey("user_data")
     }
     
     // Guardar valores
@@ -27,8 +30,14 @@ class SettingsDataStore(private val context: Context) {
     }
     
     suspend fun saveLanguage(langCode: String) {
-        context.dataStore.edit { preferences ->
-            preferences[LANGUAGE_KEY] = langCode
+        context.dataStore.edit { prefs ->
+            prefs[LANGUAGE_KEY] = langCode
+        }
+    }
+    
+    suspend fun saveLoggedUser(user: User?) {
+        context.dataStore.edit { prefs ->
+            prefs[USER_DATA_KEY] = gson.toJson(user)
         }
     }
     
@@ -37,9 +46,17 @@ class SettingsDataStore(private val context: Context) {
         prefs[DARK_MODE_KEY] ?: false
     }
     
-    val languageFlow: Flow<String> = context.dataStore.data.map { preferences ->
+    val languageFlow: Flow<String> = context.dataStore.data.map { prefs ->
         // El idioma predeterminado es el español
-        preferences[LANGUAGE_KEY] ?: "es"
+        prefs[LANGUAGE_KEY] ?: "es"
     }
     
+    val userFlow: Flow<User?> = context.dataStore.data.map { prefs ->
+        val json = prefs[USER_DATA_KEY]
+        if (!json.isNullOrEmpty()) {
+            gson.fromJson(json, User::class.java)
+        } else {
+            null
+        }
+    }
 }
