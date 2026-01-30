@@ -4,87 +4,300 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.schedule.SchedulesFragment"
+    tools:context=".ui.schedule.ScheduleFragment"
     android:background="?attr/colorPrimarySurface">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/currentUserCard"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clDay"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/clSubjects"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginVertical="8dp"
-        android:layout_marginHorizontal="16dp"
-        app:cardBackgroundColor="@color/orange"
-        app:cardCornerRadius="16dp"
-        android:elevation="8dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clUser"
-            android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivDay"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/back_ic"
+            android:clickable="true">
+        </com.google.android.material.imageview.ShapeableImageView>
+        <TextView
+            android:id="@+id/ivDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintEnd_toStartOf="@id/btnForward"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="@string/monday"
+            android:textSize="30sp"
+            android:textStyle="bold">
+        </TextView>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btnForward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ivDay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/forward_ic"
+            android:clickable="true"
+            android:focusable="true">
+        </com.google.android.material.imageview.ShapeableImageView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:text="@string/my_timetable"/>
-
-            <TextView
-                android:id="@+id/tvEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvName"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/badge_bg"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="6dp"
-                android:text="@string/my_timetable_description"
-                android:textColor="?attr/android:textColorPrimary"
-                android:textStyle="bold"
-                android:textSize="11sp"
-                android:elevation="8dp"/>
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/btnBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/forward_ic"
-                android:tint="?attr/colorOnPrimary">
-            </com.google.android.material.imageview.ShapeableImageView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-    
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/divider"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSubjects"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/currentUserCard"
-        android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="16dp"
-        app:dividerColor="?attr/colorAccent">
-    </com.google.android.material.divider.MaterialDivider>
-    
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTimetable"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="10dp">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@id/clDay"
+        android:layout_marginTop="30dp">
+        <!-- First hour -->
+        <TextView
+            android:id="@+id/lblFirstHour"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvFirstHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvFirstHour"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="08:00"
+            android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
+            android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
+            android:padding="5dp">
+        </TextView>
+        <TextView
+            android:id="@+id/tvFirstHour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/lblFirstHour"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:text="Programación"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:background="@drawable/schedule_item_bg"
+            android:padding="5dp">
+        </TextView>
+
+        <!-- Second hour -->
+
+        <TextView
+            android:id="@+id/lblSecondHour"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvSecondHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvSecondHour"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="09:00"
+            android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
+            android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
+            android:padding="5dp">
+        </TextView>
+        <TextView
+            android:id="@+id/tvSecondHour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvFirstHour"
+            app:layout_constraintStart_toEndOf="@id/lblSecondHour"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:text="Programación"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:background="@drawable/schedule_item_bg"
+            android:padding="5dp">
+        </TextView>
+
+        <!-- Third hour -->
+
+        <TextView
+            android:id="@+id/lblThirdHour"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvThirdHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvThirdHour"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="10:00"
+            android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
+            android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
+            android:padding="5dp">
+        </TextView>
+        <TextView
+            android:id="@+id/tvThirdHour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvSecondHour"
+            app:layout_constraintStart_toEndOf="@id/lblThirdHour"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:text="Programación"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:background="@drawable/schedule_item_bg"
+            android:padding="5dp">
+        </TextView>
+
+        <!-- Break -->
+
+        <TextView
+            android:id="@+id/lblBreak"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvBreak"
+            app:layout_constraintBottom_toBottomOf="@id/tvBreak"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="11:00"
+            android:textSize="25sp"
+            android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="@color/primary"
+            android:padding="5dp">
+        </TextView>
+        <TextView
+            android:id="@+id/tvBreak"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvThirdHour"
+            app:layout_constraintStart_toEndOf="@id/lblBreak"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:text="Break"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="@color/primary"
+            android:padding="5dp">
+        </TextView>
+
+        <!-- Fourth hour -->
+
+        <TextView
+            android:id="@+id/lblFourthHour"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvFourthHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvFourthHour"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="11:30"
+            android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
+            android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
+            android:padding="5dp">
+        </TextView>
+        <TextView
+            android:id="@+id/tvFourthHour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvBreak"
+            app:layout_constraintStart_toEndOf="@id/lblFourthHour"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:text="Programaciónn"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:background="@drawable/schedule_item_bg"
+            android:padding="5dp">
+        </TextView>
+
+        <!-- Fifth hour -->
+
+        <TextView
+            android:id="@+id/lblFifthHour"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvFifthHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvFifthHour"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="12:30"
+            android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
+            android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
+            android:padding="5dp">
+        </TextView>
+        <TextView
+            android:id="@+id/tvFifthHour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvFourthHour"
+            app:layout_constraintStart_toEndOf="@id/lblFifthHour"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:text="Programaciónn"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:background="@drawable/schedule_item_bg"
+            android:padding="5dp">
+        </TextView>
+
+        <!-- Sixth hour -->
+
+        <TextView
+            android:id="@+id/lblSixthHour"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/tvSixthHour"
+            app:layout_constraintBottom_toBottomOf="@id/tvSixthHour"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center"
+            android:text="13:30"
+            android:textSize="25sp"
+            android:textColor="?attr/backgroundColor"
+            android:background="@drawable/schedule_item_bg"
+            android:backgroundTint="?attr/android:textColorPrimary"
+            android:padding="5dp">
+        </TextView>
+        <TextView
+            android:id="@+id/tvSixthHour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvFifthHour"
+            app:layout_constraintStart_toEndOf="@id/lblSixthHour"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:text="Programaciónn"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:background="@drawable/schedule_item_bg"
+            android:padding="5dp">
+        </TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

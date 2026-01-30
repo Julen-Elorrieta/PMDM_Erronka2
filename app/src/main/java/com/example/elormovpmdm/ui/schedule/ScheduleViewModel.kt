@@ -1,0 +1,54 @@
+package com.example.elormovpmdm.ui.schedule.userSchedule
+
+import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.elormovpmdm.data.schedule.ScheduleApiService
+import com.example.elormovpmdm.domain.SessionManager
+import com.example.elormovpmdm.domain.model.Schedule
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.Exception
+import javax.inject.Inject
+
+@HiltViewModel
+class ScheduleViewModel @Inject constructor(private val scheduleApiService: ScheduleApiService, private val sessionManager: SessionManager): ViewModel() {
+    private val _schedules = MutableStateFlow<List<Schedule>> (emptyList())
+    val schedules: StateFlow<List<Schedule>> = _schedules
+
+    init {
+        getAllModules()
+    }
+
+    fun getAllModules() {
+        viewModelScope.launch {
+            try{
+                val response = withContext(Dispatchers.IO) {
+                    if (sessionManager.currentUser.value!!.tipoId == 4) {
+                        scheduleApiService.getStudentHorario(sessionManager.currentUser.value!!.id)
+                    } else {
+                        scheduleApiService.getHorario(sessionManager.currentUser.value!!.id)
+                    }
+                }
+
+                Log.i("GVA", "ScheduleApiService llamado")
+
+                if(response.isSuccessful) {
+                    _schedules.value = response.body() ?: emptyList()
+                    Log.i("GVA", schedules.value.size.toString())
+                    schedules.value.forEach { s ->
+                        Log.i("GVA", s.dia + s.modulos.nombre)
+                    }
+                } else {
+                    Log.i("GVA", "Error API: ${response.code()} - ${response.errorBody()?.toString()}")
+                }
+            } catch (e: Exception) {
+                Log.i("GVA", "Fallo total: ${e.message}")
+            }
+        }
+    }
+}

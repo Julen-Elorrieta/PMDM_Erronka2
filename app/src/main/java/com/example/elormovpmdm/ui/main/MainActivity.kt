@@ -52,11 +52,11 @@ class MainActivity : BaseActivity() {
         if (sessionManager.currentUser.value?.tipoId == 4) {
             binding.bottomBar.menu.clear()
             binding.bottomBar.inflateMenu(R.menu.student_bottom_menu)
-            navGraph.setStartDestination(R.id.schedulesFragment)
+            navGraph.setStartDestination(R.id.scheduleFragment)
         } else {
             binding.bottomBar.menu.clear()
             binding.bottomBar.inflateMenu(R.menu.teacher_bottom_menu)
-            navGraph.setStartDestination(R.id.schedulesFragment)
+            navGraph.setStartDestination(R.id.scheduleFragment)
         }
         
         navController.graph = navGraph
@@ -64,7 +64,7 @@ class MainActivity : BaseActivity() {
         
         navController.addOnDestinationChangedListener { _, destination, arguments ->
             when(destination.id) {
-                R.id.schedulesFragment -> binding.tvToolbarTitle.text = getString(R.string.timetable)
+                R.id.scheduleFragment -> binding.tvToolbarTitle.text = getString(R.string.timetable)
                 R.id.studentsFragment -> binding.tvToolbarTitle.text = getString(R.string.students)
                 R.id.meetingsFragment -> binding.tvToolbarTitle.text = getString(R.string.meetings)
             }

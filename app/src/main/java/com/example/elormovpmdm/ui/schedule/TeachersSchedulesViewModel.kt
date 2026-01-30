@@ -1,5 +1,6 @@
 package com.example.elormovpmdm.ui.schedule
 
+
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,25 +15,26 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+
 @HiltViewModel
-class SchedulesViewModel @Inject constructor(
+class TeachersSchedulesViewModel @Inject constructor(
     private val usersApiService: UsersApiService,
     private val sessionManager: SessionManager
 ): ViewModel() {
     private val _users = MutableStateFlow<List<User>> (emptyList())
     val users: StateFlow<List<User>> = _users
-    
+
     init {
         getAllUsers()
     }
-    
+
     fun getAllUsers() {
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
                     usersApiService.getAllUsers(sessionManager.currentUser.value!!.id)
                 }
-                
+
                 if (response.isSuccessful) {
                     _users.value = response.body() ?: emptyList()
                 } else {
@@ -44,3 +46,4 @@ class SchedulesViewModel @Inject constructor(
         }
     }
 }
+

@@ -8,4 +8,7 @@ import retrofit2.http.Path
 interface ScheduleApiService {
     @GET("horarios/getHorarios/{id}")
     suspend fun getHorario(@Path("id") id: Int): Response<List<Schedule>>
+
+    @GET("horarios/getHorariosIkasle/{id}")
+    suspend fun getStudentHorario(@Path("id") id: Int): Response<List<Schedule>>
 }

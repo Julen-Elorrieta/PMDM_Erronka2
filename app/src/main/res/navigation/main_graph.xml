@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/schedulesFragment">
+    app:startDestination="@id/scheduleFragment">
 
     <fragment
-        android:id="@+id/schedulesFragment"
-        android:name="com.example.elormovpmdm.ui.schedule.SchedulesFragment"
+        android:id="@+id/scheduleFragment"
+        android:name="com.example.elormovpmdm.ui.schedule.ScheduleFragment"
         android:label="fragment_timetable"
         tools:layout="@layout/fragment_schedules" />
     <fragment

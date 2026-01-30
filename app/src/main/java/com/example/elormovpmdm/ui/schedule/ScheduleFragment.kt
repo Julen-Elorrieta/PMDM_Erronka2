@@ -1,63 +1,69 @@
-package com.example.elormovpmdm.ui.schedule.userSchedule
+package com.example.elormovpmdm.ui.schedule
 
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.elormovpmdm.BaseActivity
 import com.example.elormovpmdm.R
-import com.example.elormovpmdm.databinding.ActivityScheduleBinding
+import com.example.elormovpmdm.databinding.FragmentSchedulesBinding
+import com.example.elormovpmdm.domain.SessionManager
 import com.example.elormovpmdm.domain.model.Schedule
+import com.example.elormovpmdm.ui.schedule.userSchedule.ScheduleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class UserScheduleActivity : BaseActivity() {
+class ScheduleFragment : Fragment() {
+    
+    @Inject
+    lateinit var sessionManager: SessionManager
 
-    private lateinit var binding: ActivityScheduleBinding
+    private var _binding: FragmentSchedulesBinding? = null
+    private val binding get() = _binding!!
+    private val scheduleViewModel: ScheduleViewModel by viewModels()
     private var schedules: List<Schedule> = emptyList()
-    private val userScheduleViewModel: UserScheduleViewModel by viewModels()
-
-    private val daysOfWeek = listOf(
-        getString(R.string.monday),
-        getString(R.string.tuesday),
-        getString(R.string.wednesday),
-        getString(R.string.thursday),
-        getString(R.string.friday),
-    )
     private var currentIndex: Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        binding = ActivityScheduleBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.schedule_activity)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-        initComponents()
-        initUI()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSchedulesBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
-    private fun initComponents() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val daysOfWeek by lazy {
+            listOf(
+                ContextCompat.getString(requireContext(), R.string.monday),
+                ContextCompat.getString(requireContext(), R.string.tuesday),
+                ContextCompat.getString(requireContext(), R.string.wednesday),
+                ContextCompat.getString(requireContext(), R.string.thursday),
+                ContextCompat.getString(requireContext(), R.string.friday),
+            )
+        }
+        initComponents(daysOfWeek)
+        initUI(daysOfWeek)
+    }
+
+    private fun initComponents(daysOfWeek: List<String>) {
         binding.btnBack.setOnClickListener {
             if (currentIndex > 0) {
                 currentIndex--
-                paintSchedule(currentIndex)
+                paintSchedule(daysOfWeek, currentIndex)
             } else {
                 currentIndex = daysOfWeek.size - 1
-                paintSchedule(currentIndex)
+                paintSchedule(daysOfWeek, currentIndex)
             }
 
             binding.ivDay.text = daysOfWeek[currentIndex]
@@ -65,24 +71,24 @@ class UserScheduleActivity : BaseActivity() {
         binding.btnForward.setOnClickListener {
             if (currentIndex < daysOfWeek.size - 1) {
                 currentIndex++
-                paintSchedule(currentIndex)
+                paintSchedule(daysOfWeek, currentIndex)
             } else {
                 currentIndex = 0
-                paintSchedule(currentIndex)
+                paintSchedule(daysOfWeek, currentIndex)
             }
 
             binding.ivDay.text = daysOfWeek[currentIndex]
         }
     }
 
-    private fun initUI() {
+    private fun initUI(daysOfWeek: List<String>) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                userScheduleViewModel.schedules.collect { schedules ->
+                scheduleViewModel.schedules.collect { schedules ->
                     Log.i("GVA", "Datos recibidos: ${schedules.size}")
                     if (schedules.isNotEmpty()) {
                         updateList(schedules)
-                        paintSchedule(currentIndex)
+                        paintSchedule(daysOfWeek, currentIndex)
                     }
                 }
             }
@@ -95,7 +101,7 @@ class UserScheduleActivity : BaseActivity() {
         schedules = listUpdated
     }
 
-    private fun paintSchedule(index: Int) {
+    private fun paintSchedule(daysOfWeek: List<String>, index: Int) {
         val textViews = listOf(
             binding.tvFirstHour,
             binding.tvSecondHour,
@@ -107,7 +113,7 @@ class UserScheduleActivity : BaseActivity() {
 
         textViews.forEach {
             it.text = ""
-            it.setBackgroundColor(getColor(R.color.white))
+            it.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
         }
 
         schedules.forEach { schedule ->
@@ -154,6 +160,6 @@ class UserScheduleActivity : BaseActivity() {
             19 -> R.color.mod19
             else -> {R.color.white}
         }
-        return getColor(colorRes)
+        return ContextCompat.getColor(requireContext(), colorRes)
     }
 }
