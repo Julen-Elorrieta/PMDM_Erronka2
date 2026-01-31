@@ -1,5 +1,6 @@
 package com.example.elormovpmdm.ui.schedule.userSchedule
 
+import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import com.example.elormovpmdm.BaseActivity
 import com.example.elormovpmdm.R
 import com.example.elormovpmdm.databinding.ActivityScheduleBinding
 import com.example.elormovpmdm.domain.model.Schedule
+import com.example.elormovpmdm.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -24,15 +26,8 @@ class UserScheduleActivity : BaseActivity() {
     private lateinit var binding: ActivityScheduleBinding
     private var schedules: List<Schedule> = emptyList()
     private val userScheduleViewModel: UserScheduleViewModel by viewModels()
-
-    private val daysOfWeek = listOf(
-        getString(R.string.monday),
-        getString(R.string.tuesday),
-        getString(R.string.wednesday),
-        getString(R.string.thursday),
-        getString(R.string.friday),
-    )
-    private var currentIndex: Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
+    private var currentIndex: Int = 0
+        //Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,18 +41,33 @@ class UserScheduleActivity : BaseActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        initComponents()
-        initUI()
+
+        val daysOfWeek by lazy {
+            listOf(
+                getString(R.string.monday),
+                getString(R.string.tuesday),
+                getString(R.string.wednesday),
+                getString(R.string.thursday),
+                getString(R.string.friday),
+            )
+        }
+        
+        initComponents(daysOfWeek)
+        initUI(daysOfWeek)
     }
 
-    private fun initComponents() {
+    private fun initComponents(daysOfWeek: List<String>) {
+        binding.btnQuit.setOnClickListener { 
+            finish()
+        }
+        
         binding.btnBack.setOnClickListener {
             if (currentIndex > 0) {
                 currentIndex--
-                paintSchedule(currentIndex)
+                paintSchedule(daysOfWeek, currentIndex)
             } else {
                 currentIndex = daysOfWeek.size - 1
-                paintSchedule(currentIndex)
+                paintSchedule(daysOfWeek, currentIndex)
             }
 
             binding.ivDay.text = daysOfWeek[currentIndex]
@@ -65,24 +75,24 @@ class UserScheduleActivity : BaseActivity() {
         binding.btnForward.setOnClickListener {
             if (currentIndex < daysOfWeek.size - 1) {
                 currentIndex++
-                paintSchedule(currentIndex)
+                paintSchedule(daysOfWeek, currentIndex)
             } else {
                 currentIndex = 0
-                paintSchedule(currentIndex)
+                paintSchedule(daysOfWeek, currentIndex)
             }
 
             binding.ivDay.text = daysOfWeek[currentIndex]
         }
     }
 
-    private fun initUI() {
+    private fun initUI(daysOfWeek: List<String>) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 userScheduleViewModel.schedules.collect { schedules ->
                     Log.i("GVA", "Datos recibidos: ${schedules.size}")
                     if (schedules.isNotEmpty()) {
                         updateList(schedules)
-                        paintSchedule(currentIndex)
+                        paintSchedule(daysOfWeek, currentIndex)
                     }
                 }
             }
@@ -95,7 +105,7 @@ class UserScheduleActivity : BaseActivity() {
         schedules = listUpdated
     }
 
-    private fun paintSchedule(index: Int) {
+    private fun paintSchedule(daysOfWeek: List<String>, index: Int) {
         val textViews = listOf(
             binding.tvFirstHour,
             binding.tvSecondHour,

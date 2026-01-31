@@ -76,6 +76,9 @@ dependencies {
     // Guava (necesario a veces para ListenableFuture)
     implementation("com.google.guava:guava:32.1.3-android")
     
+    //Fecha
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+    
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

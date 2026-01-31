@@ -23,15 +23,12 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ScheduleFragment : Fragment() {
-    
-    @Inject
-    lateinit var sessionManager: SessionManager
-
     private var _binding: FragmentSchedulesBinding? = null
     private val binding get() = _binding!!
     private val scheduleViewModel: ScheduleViewModel by viewModels()
     private var schedules: List<Schedule> = emptyList()
-    private var currentIndex: Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
+    private var currentIndex: Int = 0
+        //Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,7 +82,6 @@ class ScheduleFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 scheduleViewModel.schedules.collect { schedules ->
-                    Log.i("GVA", "Datos recibidos: ${schedules.size}")
                     if (schedules.isNotEmpty()) {
                         updateList(schedules)
                         paintSchedule(daysOfWeek, currentIndex)

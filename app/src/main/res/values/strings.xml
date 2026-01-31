@@ -43,7 +43,6 @@
     <string name="permision_denied">Por favor, acepte los permisos</string>
 
     <!-- activity_schedule -->
-    <string name="my_timetable">Mi horario</string>
     <string name="my_timetable_description">Pulsa para ver tu horario</string>
     <string name="monday">Lunes</string>
     <string name="tuesday">Martes</string>

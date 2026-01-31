@@ -52,4 +52,9 @@
     <color name="mod17">#f5f5f5</color>
     <color name="mod18">#ffe4e1</color>
     <color name="mod19">#fff0f5</color>
+    
+    <!-- Meetings -->
+    <color name="agreed">#25d366</color>
+    <color name="pending">#fbc117</color>
+    <color name="refused">#e43d30</color>
 </resources>

@@ -9,11 +9,45 @@
     android:background="@drawable/bottom_nav_bg"
     android:padding="16dp">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolBar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        android:background="?attr/backgroundColor"
+        android:elevation="8dp">
+
+        <TextView
+            android:id="@+id/tvToolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/timetable"
+            android:textColor="?attr/android:textColorPrimary"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:textStyle="bold"
+            android:textSize="25sp">
+        </TextView>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btnQuit"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/cross_ic"
+            android:clickable="true"
+            android:focusable="true"
+            app:contentPadding="10dp"/>
+    </com.google.android.material.appbar.MaterialToolbar>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clDay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBar"
         app:layout_constraintBottom_toTopOf="@id/clSubjects"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +62,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:src="@drawable/back_ic"
-            android:clickable="true">
+            android:clickable="true"
+            android:focusable="true">
         </com.google.android.material.imageview.ShapeableImageView>
         <TextView
             android:id="@+id/ivDay"
@@ -63,7 +98,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clDay"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="30dp">
         <!-- First hour -->
         <TextView

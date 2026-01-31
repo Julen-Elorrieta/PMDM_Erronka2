@@ -39,10 +39,6 @@ class ScheduleViewModel @Inject constructor(private val scheduleApiService: Sche
 
                 if(response.isSuccessful) {
                     _schedules.value = response.body() ?: emptyList()
-                    Log.i("GVA", schedules.value.size.toString())
-                    schedules.value.forEach { s ->
-                        Log.i("GVA", s.dia + s.modulos.nombre)
-                    }
                 } else {
                     Log.i("GVA", "Error API: ${response.code()} - ${response.errorBody()?.toString()}")
                 }

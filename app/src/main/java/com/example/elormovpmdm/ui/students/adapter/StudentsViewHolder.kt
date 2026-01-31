@@ -9,8 +9,8 @@ class StudentsViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = UserCardBinding.bind(view)
     
     fun render(user: User, onItemSelected: (User) -> Unit) {
-        val name: String = user.nombre ?: "Sin nombre"
-        val surname: String = user.apellidos ?: ""
+        val name: String = user.nombre
+        val surname: String = user.apellidos
 
         binding.tvName.text = "$name $surname"
         binding.tvEmail.text = user.email

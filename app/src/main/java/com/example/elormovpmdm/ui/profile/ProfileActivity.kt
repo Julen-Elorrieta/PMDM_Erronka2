@@ -37,8 +37,7 @@ class ProfileActivity : BaseActivity() {
     
     private fun initComponent() {
         binding.btnBack.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
         binding.btnCamera.setOnClickListener {

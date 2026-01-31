@@ -96,8 +96,7 @@ class CameraActivity : BaseActivity() {
 
     private fun initComponents() {
         binding.btnBack.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
+            finish()
         }
         
         binding.btnFlash.setOnClickListener { 
