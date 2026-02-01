@@ -1,11 +1,11 @@
 package com.example.elormovpmdm.domain.model
 
-data class Meeting (
-    val id_reunion: Int,
+data class CreateMeetingRequest(
     val estado: String,
-    val aula: String,
-    val fecha: String,
-    val id_centro: Int,
+    val aula: String?,
+    val fecha: String?,
+    val id_centro: String?,
     val usersByAlumnoId: User,
     val usersByProfesorId: User
 )
+

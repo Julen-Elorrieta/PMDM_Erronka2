@@ -7,13 +7,43 @@
     tools:context=".ui.schedule.ScheduleFragment"
     android:background="?attr/colorPrimarySurface">
 
+    <Button
+        android:id="@+id/btnAdd"
+        style="@style/button_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="Crear Reunion"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold">
+    </Button>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnAdd"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="16dp"
+        app:dividerColor="?attr/colorAccent">
+    </com.google.android.material.divider.MaterialDivider>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMeetins"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="10dp">
     </androidx.recyclerview.widget.RecyclerView>

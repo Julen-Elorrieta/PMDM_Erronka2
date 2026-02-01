@@ -1,14 +1,14 @@
 package com.example.elormovpmdm.ui.meetings.adapter
 
-import android.text.Selection
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.elormovpmdm.R
 import com.example.elormovpmdm.databinding.MeetingCardBinding
 import com.example.elormovpmdm.domain.model.Meeting
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import java.time.format.DateTimeFormatter
 
 
 class MeetingsViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -32,5 +32,15 @@ class MeetingsViewHolder(view: View): RecyclerView.ViewHolder(view) {
         binding.root.setOnClickListener { 
             onItemSelected(meeting)
         }
+        
+        binding.root.setCardBackgroundColor(
+            if (meeting.estado.equals("aceptada", ignoreCase = true)) {
+                ContextCompat.getColor(itemView.context, R.color.agreed)
+            } else if (meeting.estado.equals("pendiente", ignoreCase = true)) {
+                ContextCompat.getColor(itemView.context, R.color.pending)
+            } else {
+                ContextCompat.getColor(itemView.context, R.color.refused)
+            }
+        )
     }
 }

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="25dp"
+    android:background="?attr/colorPrimary">
+    
+    <TextView
+        android:id="@+id/tvStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="?attr/colorOnSecondary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Alumno">
+    </TextView>
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUsers"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@id/tvStudent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp">
+    </androidx.recyclerview.widget.RecyclerView>
+    
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/firstDivider"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        app:layout_constraintTop_toBottomOf="@id/rvUsers"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:dividerColor="?attr/colorPrimarySurface">
+    </com.google.android.material.divider.MaterialDivider>
+    
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/etDate"
+        app:layout_constraintBottom_toBottomOf="@id/etDate"
+        android:layout_marginTop="10dp"
+        android:textColor="?attr/colorOnSecondary"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Fecha:">
+    </TextView>
+    
+    <EditText
+        android:id="@+id/etDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tvDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/firstDivider"
+        android:layout_marginTop="10dp"
+        android:focusable="false"
+        android:clickable="true"
+        android:textColor="?attr/colorPrimarySurface">
+    </EditText>
+    
+    <TextView
+        android:id="@+id/tvHour"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/etHour"
+        app:layout_constraintBottom_toBottomOf="@id/etHour"
+        android:layout_marginTop="10dp"
+        android:textColor="?attr/colorOnSecondary"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Hora:">
+    </TextView>
+    
+    <EditText
+        android:id="@+id/etHour"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tvHour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etDate"
+        android:layout_marginTop="10dp"
+        android:focusable="false"
+        android:clickable="true"
+        android:textColor="?attr/colorPrimarySurface">
+    </EditText>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/secondDivider"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        app:layout_constraintTop_toBottomOf="@id/etHour"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        app:dividerColor="?attr/colorPrimarySurface">
+    </com.google.android.material.divider.MaterialDivider>
+    
+    <TextView
+        android:id="@+id/tvCenter"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/centerMenu"
+        app:layout_constraintBottom_toBottomOf="@id/centerMenu"
+        android:textColor="?attr/colorOnSecondary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Centro:">
+    </TextView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/centerMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tvCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/secondDivider"
+        android:layout_marginTop="10dp"
+        style="@style/styleLanguageSelector"
+        android:hint="Seleccionar centro"
+        android:textColorHint="?attr/colorPrimarySurface">
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none"
+            android:textColor="?attr/colorPrimarySurface"
+            android:textSize="15sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    
+    <TextView
+        android:id="@+id/tvClassroom"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/etClassroom"
+        app:layout_constraintBottom_toBottomOf="@id/etClassroom"
+        android:textColor="?attr/colorOnSecondary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Aula:">
+    </TextView>
+    
+    <EditText
+        android:id="@+id/etClassroom"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tvClassroom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/centerMenu"
+        android:layout_marginTop="8dp"
+        android:textColor="?attr/colorPrimarySurface">
+    </EditText>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="24dp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:text="Crear"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        style="@style/button_style"
+        android:backgroundTint="@color/agreed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etClassroom" />
+</androidx.constraintlayout.widget.ConstraintLayout>
