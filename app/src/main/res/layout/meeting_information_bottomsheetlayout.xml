@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar"
         android:textAlignment="viewStart"
-        android:text="Reunion con Oscar"
+        tools:text="Reunion con Oscar"
         android:padding="8dp"
         android:textColor="?attr/android:textColorPrimary"
         android:layout_marginStart="12dp"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/meetingTitle"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="INFORMACIÓN"
+        android:text="@string/information"
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="Fecha"
+                android:text="@string/date"
                 android:textSize="15sp">
             </TextView>
             <TextView
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/labelDate"
-                android:text="Hora"
+                android:text="@string/hour"
                 android:textSize="15sp">
             </TextView>
             <TextView
@@ -111,7 +111,7 @@
         app:layout_constraintTop_toBottomOf="@id/cardPersonal"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="LOCALIZACIÓN"
+        android:text="@string/location"
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="Centro"
+                android:text="@string/center"
                 android:textSize="15sp">
             </TextView>
             <TextView
@@ -155,7 +155,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/labelCenter"
-            android:text="Aula"
+            android:text="@string/classroom"
             android:textSize="15sp">
             </TextView>
             <TextView

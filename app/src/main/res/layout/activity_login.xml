@@ -17,7 +17,7 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
-            android:src="@drawable/school">
+            android:src="@drawable/elorrieta">
         </com.google.android.material.imageview.ShapeableImageView>
 
         <TextView
@@ -29,7 +29,7 @@
             android:textColor="?attr/android:textColorPrimary"
             android:textSize="32sp"
             android:textStyle="bold"
-            tools:text="@string/teacher_login_title">
+            android:text="@string/login_title">
         </TextView>
 
         <TextView
@@ -40,7 +40,7 @@
             android:gravity="center"
             android:textColor="?attr/android:textColorSecondary"
             android:textSize="16sp"
-            tools:text="@string/teacher_login_subtitle">
+            android:text="@string/login_subtitle">
         </TextView>
 
         <TextView
@@ -109,17 +109,5 @@
             android:textSize="20sp"
             android:textStyle="bold">
         </Button>
-
-        <TextView
-            android:id="@+id/tvOtherOption"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:elevation="8dp"
-            android:gravity="center"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="15sp"
-            tools:text="@string/teacher_student_option">
-        </TextView>
     </LinearLayout>
 </ScrollView>

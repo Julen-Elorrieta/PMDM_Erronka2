@@ -1,8 +1,8 @@
 package com.example.elormovpmdm.ui.meetings
 
-import android.R
+import com.example.elormovpmdm.R
+import android.R as androidR
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -132,6 +132,12 @@ class MeetingsFragment : Fragment() {
             .setView(dialogBinding.root)
             .create()
         
+        dialogBinding.tvUsers.text = if (meetingsViewModel.user?.tipoId == 4) {
+            R.string.students.toString()
+        } else {
+            R.string.teachers.toString()
+        }
+        
         var selectedUser: User? = null
         
         val addDialogAdapter: AddDialogAdapter = AddDialogAdapter(onMeetingUserSelected = { user ->
@@ -144,7 +150,7 @@ class MeetingsFragment : Fragment() {
         val centerNames: List<String> = meetingsViewModel.centers.value.map { 
             it.NOM
         }
-        val centersAdapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, centerNames)
+        val centersAdapter = ArrayAdapter(requireContext(), androidR.layout.simple_spinner_item, centerNames)
         dialogBinding.autoCompleteTextView.setAdapter(centersAdapter)
 
         dialogBinding.etDate.setOnClickListener { 

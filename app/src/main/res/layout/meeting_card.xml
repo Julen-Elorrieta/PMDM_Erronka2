@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/white"
             android:textSize="18sp"
-            tools:text="Reunión con Eduardo" 
+            tools:text="Reunión con Eduardo"
             android:elevation="8dp"/>
 
         <TextView

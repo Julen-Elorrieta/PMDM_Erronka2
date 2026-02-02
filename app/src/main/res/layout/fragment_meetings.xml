@@ -19,7 +19,7 @@
         android:layout_marginHorizontal="20dp"
         android:gravity="center"
         android:padding="15dp"
-        android:text="Crear Reunion"
+        android:text="@string/create"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold">

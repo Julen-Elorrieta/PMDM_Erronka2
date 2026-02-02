@@ -1,29 +1,22 @@
 <resources>
-    <string name="app_name">ElorMovPMDM</string>
+    <string name="app_name">ElorMov</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <!-- partes -->
-    <string name="timetable">Horario</string>
+    <string name="schedule">Horario</string>
+    <string name="teacher_schedules">Horario profesores</string>  
     <string name="students">Alumnos</string>
     <string name="meetings">Reuniones</string>
 
     <!-- activity_login -->
+    <string name="login_title">Portal educativo</string>
+    <string name="login_subtitle">Tu espacio digital, disponible en cualquier momento</string>
     <string name="email" translatable="false">Email</string>
-    <string name="email_hint" translatable="false">professor@elorrieta-errekamari.com</string>
+    <string name="email_hint" translatable="false">user@elorrieta-errekamari.com</string>
     <string name="password">Contraseña</string>
     <string name="password_hint" translatable="false">••••••••</string>
     <string name="login">Iniciar Sesión</string>
-
-    <!-- activity_teacher_login -->
-    <string name="teacher_login_title">Portal de profesor</string>
-    <string name="teacher_login_subtitle">Inicie sesión para gestionar sus clases y ver el progreso de los alumnos</string>
-    <string name="teacher_student_option">¿Eres estudiante? Inicia sesión aquí</string>
-
-    <!-- activity_student_login -->
-    <string name="student_login_title">Portal de estudiante</string>
-    <string name="student_login_subtitle">Inicie sesión para gestionar su horario</string>
-    <string name="student_teacher_option">¿Eres profesor? Inicia sesión aquí</string>
 
     <!-- activity_profile -->
     <string name="name_example" translatable="false">Dr Roberto García</string>
@@ -43,12 +36,30 @@
     <string name="permision_denied">Por favor, acepte los permisos</string>
 
     <!-- activity_schedule -->
-    <string name="my_timetable_description">Pulsa para ver tu horario</string>
     <string name="monday">Lunes</string>
     <string name="tuesday">Martes</string>
     <string name="wednesday">Miércoles</string>
     <string name="thursday">Jueves</string>
     <string name="friday">Viernes</string>
     <string name="descanso">Descanso</string>
+    <string name="first_hour" translatable="false">1</string>
+    <string name="second_hour" translatable="false">2</string>
+    <string name="third_hour" translatable="false">3</string>
+    <string name="fourth_hour" translatable="false">4</string>
+    <string name="fifth_hour" translatable="false">5</string>
+    <string name="sixth_hour" translatable="false">6</string>
+    
+    <!-- meeting_bottomsheet -->
+    <string name="information">INFORMACIÓN</string>
+    <string name="location">LOCALIZACIÓN</string>
+    
+    <!-- add_meeting_dialog -->
+    <string name="date">Fecha:</string>
+    <string name="hour">Hora:</string>
+    <string name="center">Centro:</string>
+    <string name="classroom">Aula:</string>
+    <string name="select_center">Seleccionar centro</string>
+    <string name="create">Crear reunion</string>
+    <string name="teachers">Profesores</string> 
 
 </resources>

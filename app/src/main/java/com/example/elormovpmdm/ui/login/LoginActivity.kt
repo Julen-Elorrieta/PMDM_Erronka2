@@ -12,7 +12,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import com.example.elormovpmdm.BaseActivity
 import com.example.elormovpmdm.ui.main.MainActivity
 import com.example.elormovpmdm.R
@@ -22,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -31,7 +29,6 @@ class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel: LoginViewModel by viewModels()
     private val _other = MutableStateFlow(false)
-    val other: StateFlow<Boolean> = _other.asStateFlow()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,41 +60,14 @@ class LoginActivity : BaseActivity() {
                 Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show()
             }
         }
-        binding.tvOtherOption.setOnClickListener {
-            Log.i("GVA", "tvOtherOption pulsado")
-            _other.value = !_other.value
-        }
     }
 
     private fun handleLoginSuccess () {
-        /*
-        findNavController().navigate(
-            HoroscopeFragmentDirections.actionHoroscopeFragmentToHoroscopeDetailActivity(type)
-        )
-        */
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
     private fun initUI() {
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                other.collect(){ value ->
-                    if (value) {
-                        binding.tvTitle.text = getString(R.string.student_login_title)
-                        binding.tvSubtitle.text = getString(R.string.student_login_subtitle)
-                        binding.tvOtherOption.text = getString(R.string.student_teacher_option)
-                    } else {
-                        binding.tvTitle.text = getString(R.string.teacher_login_title)
-                        binding.tvSubtitle.text = getString(R.string.teacher_login_subtitle)
-                        binding.tvOtherOption.text = getString(R.string.teacher_student_option)
-                    }
-                }
-            }
-        }
-
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 loginViewModel.state.collect { state ->

@@ -68,7 +68,7 @@ class MainActivity : BaseActivity() {
         
         navController.addOnDestinationChangedListener { _, destination, arguments ->
             when(destination.id) {
-                R.id.scheduleFragment -> binding.tvToolbarTitle.text = getString(R.string.timetable)
+                R.id.scheduleFragment -> binding.tvToolbarTitle.text = getString(R.string.schedule)
                 R.id.studentsFragment -> binding.tvToolbarTitle.text = getString(R.string.students)
                 R.id.meetingsFragment -> binding.tvToolbarTitle.text = getString(R.string.meetings)
             }

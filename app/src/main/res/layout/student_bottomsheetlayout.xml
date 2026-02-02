@@ -61,7 +61,7 @@
             android:background="@drawable/badge_bg"
             android:paddingHorizontal="16dp"
             android:paddingVertical="6dp"
-            tools:text="Profesor de matematicas"
+            tools:text="@string/email_hint"
             android:textColor="?attr/android:textColorPrimary"
             android:textStyle="bold"
             android:textSize="11sp" />
