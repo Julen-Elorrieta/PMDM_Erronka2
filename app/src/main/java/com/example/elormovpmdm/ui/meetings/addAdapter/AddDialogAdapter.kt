@@ -36,13 +36,17 @@ class AddDialogAdapter(
             userList[position],
             isSelected = position == selectedPosition,
             onMeetingUserSelected = { user ->
+                val currentPosition = holder.adapterPosition
+                if (currentPosition == RecyclerView.NO_POSITION) return@render
+
                 val previousPosition = selectedPosition
-                selectedPosition = position
-                
+                selectedPosition = currentPosition
+
                 if (previousPosition != RecyclerView.NO_POSITION) {
                     notifyItemChanged(previousPosition)
                 }
-                notifyItemChanged(position)
+                notifyItemChanged(currentPosition)
+
                 onMeetingUserSelected(user)
             }
         )

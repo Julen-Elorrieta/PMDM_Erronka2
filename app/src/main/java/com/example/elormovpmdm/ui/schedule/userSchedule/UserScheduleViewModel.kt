@@ -5,7 +5,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.elormovpmdm.data.schedule.ScheduleApiService
-import com.example.elormovpmdm.domain.SessionManager
 import com.example.elormovpmdm.domain.model.Schedule
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

@@ -1,11 +1,14 @@
 package com.example.elormovpmdm.ui.meetings
 
+import android.R
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,7 +16,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.elormovpmdm.databinding.AddMeetingDialogBinding
 import com.example.elormovpmdm.databinding.FragmentMeetingsBinding
-import com.example.elormovpmdm.domain.model.CreateMeetingRequest
+import com.example.elormovpmdm.databinding.MeetingInformationBottomsheetlayoutBinding
+import com.example.elormovpmdm.domain.model.Center
 import com.example.elormovpmdm.domain.model.Meeting
 import com.example.elormovpmdm.domain.model.User
 import com.example.elormovpmdm.ui.meetings.adapter.MeetingsAdapter
@@ -23,11 +27,17 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import org.osmdroid.config.Configuration
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.overlay.Marker
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
+import kotlin.math.log
 
 @AndroidEntryPoint
 class MeetingsFragment : Fragment() {
@@ -62,7 +72,47 @@ class MeetingsFragment : Fragment() {
     }
     
     private fun onItemSelected(meeting: Meeting) {
-        
+        val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(requireContext())
+        val sheetBinding = MeetingInformationBottomsheetlayoutBinding.inflate(layoutInflater)
+
+        val title = meeting.titulo
+        val fullDate = meeting.fecha
+        val instant = Instant.parse(fullDate)
+        val localDateTime = instant.toLocalDateTime(TimeZone.UTC)
+        val onlyDate = localDateTime.date
+        val onlyTime = localDateTime.time
+
+        sheetBinding.meetingDate.text = onlyDate.toString()
+        sheetBinding.meetingHour.text = onlyTime.toString()
+
+        val center: Center? = meetingsViewModel.centers.value.find {
+            it.CCEN == meeting.idCentro
+        }
+
+        sheetBinding.center.text = center?.NOM
+
+        sheetBinding.meetingClassroom.text = meeting.aula ?: "null"
+
+        Configuration.getInstance().userAgentValue = "com.example.elormovpmdm"
+        sheetBinding.map.setTileSource(TileSourceFactory.MAPNIK) // Estilo estándar de mapa
+        sheetBinding.map.setMultiTouchControls(true)             // Zoom con dos dedos
+
+        // Definir punto de inicio (Latitud, Longitud)
+        val startPoint = GeoPoint(center!!.LONGITUD.toDouble(), center.LATITUD.toDouble()) // Madrid
+        val startMarker = Marker(sheetBinding.map)
+
+        val mapController = sheetBinding.map.controller
+        mapController.setZoom(15.0)
+
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        startMarker.position = startPoint
+        startMarker.title = center.NOM
+        sheetBinding.map.overlays.add(startMarker)
+
+        mapController.setCenter(startPoint)
+
+        dialog.setContentView(sheetBinding.root)
+        dialog.show()
     }
     
     private fun initUI() {
@@ -94,11 +144,9 @@ class MeetingsFragment : Fragment() {
         val centerNames: List<String> = meetingsViewModel.centers.value.map { 
             it.NOM
         }
-        val centersAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, centerNames)
+        val centersAdapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, centerNames)
         dialogBinding.autoCompleteTextView.setAdapter(centersAdapter)
-        
-        var selectedDateMillis: Long = 0
-        
+
         dialogBinding.etDate.setOnClickListener { 
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Seleccione una fecha")
@@ -106,15 +154,11 @@ class MeetingsFragment : Fragment() {
             
             datePicker.show(childFragmentManager, "datePicker")
             datePicker.addOnPositiveButtonClickListener { timestamp ->
-                selectedDateMillis = timestamp
                 dialogBinding.etDate.setText(SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(
                     Date(timestamp)
                 ))
             }
         }
-        
-        var selectedHour: Int = 0
-        var selectedMinute: Int = 0
         
         dialogBinding.etHour.setOnClickListener { 
             val timePicker = MaterialTimePicker.Builder()
@@ -125,40 +169,68 @@ class MeetingsFragment : Fragment() {
             
             timePicker.show(childFragmentManager, "timePicker")
             timePicker.addOnPositiveButtonClickListener {
-                selectedHour = timePicker.hour
-                selectedMinute = timePicker.minute
                 dialogBinding.etHour.setText(String.format("%02d:%02d", timePicker.hour, timePicker.minute))
             }
         }
         
         dialogBinding.btnAdd.setOnClickListener {
-            val centro = meetingsViewModel.centers.value.find { center ->
-                center.NOM.equals(dialogBinding.autoCompleteTextView.text)
-            }
-            val id_centro = centro?.CCEN
-            val dateMillis = selectedDateMillis
-            val hourMillis = selectedHour * 3600000L
-            val minuteMillis = selectedMinute * 60000L
-            
-            val fecha = dateMillis + hourMillis + minuteMillis
-            val isoFecha = DateTimeFormatter.ISO_INSTANT
-                .format(Instant.ofEpochMilli(fecha))
-                    
-            if (selectedUser == null || centro == null || dialogBinding.etDate.text == null || dialogBinding.etHour.text == null) {
-                return@setOnClickListener
-            } else {
-                val estado = if (meetingsViewModel.user!!.tipoId == 4) "PENDIENTE" else "ACEPTADA"
+            // Validación de campos
+            val selectedDate = dialogBinding.etDate.text.toString()
+            val selectedHour = dialogBinding.etHour.text.toString()
+            val selectedCenter = meetingsViewModel.centers.value.find {
+                it.NOM == dialogBinding.autoCompleteTextView.text.toString()
+            }!!.CCEN
+            val classroom = dialogBinding.etClassroom.text.toString()
+            val estado = if (meetingsViewModel.user!!.tipoId == 4) "pendiente" else "aceptada"
 
-                val request = CreateMeetingRequest(
-                    estado = estado,
-                    aula = dialogBinding.etClassroom.toString(),
-                    fecha = isoFecha,
-                    id_centro = id_centro,
-                    usersByAlumnoId = selectedUser,
-                    usersByProfesorId = meetingsViewModel.user!!
-                )
-                meetingsViewModel.createMeeting(request)
+            // Validar que todos los campos estén rellenados
+            when {
+                selectedUser == null -> {
+                    Toast.makeText(requireContext(), "Por favor, seleccione un alumno", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                selectedDate.isEmpty() -> {
+                    Toast.makeText(requireContext(), "Por favor, seleccione una fecha", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                selectedHour.isEmpty() -> {
+                    Toast.makeText(requireContext(), "Por favor, seleccione una hora", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                selectedCenter.isEmpty() -> {
+                    Toast.makeText(requireContext(), "Por favor, seleccione un centro", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                classroom.isEmpty() -> {
+                    dialogBinding.etClassroom.error = "El aula es obligatoria"
+                    return@setOnClickListener
+                }
             }
+
+            // Combinar fecha y hora en formato ISO 8601
+            // Convertir de "yyyy/MM/dd" y "HH:mm" a "yyyy-MM-ddTHH:mm:ss"
+            val dateTimeString = "${selectedDate.replace("/", "-")}T${selectedHour}:00.00Z"
+
+            val request = Meeting(
+                titulo = "Reunion con ${selectedUser.nombre}",
+                aula = classroom,
+                fecha = dateTimeString,
+                estado = estado,
+                idCentro = selectedCenter,
+                alumnoId = selectedUser.id,
+                profesorId = meetingsViewModel.user!!.id
+            )
+
+            lifecycleScope.launch {
+                try {
+                    meetingsViewModel.createMeeting(request)
+                } catch (e: Exception) {
+
+                }
+            }
+
+            // Cerrar el diálogo
+            dialog.dismiss()
         }
         
         dialog.show()

@@ -78,6 +78,9 @@ dependencies {
     
     //Fecha
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+
+    // Mapa
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
     
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

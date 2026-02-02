@@ -7,7 +7,6 @@ import com.example.elormovpmdm.data.meetings.MeetingsApiService
 import com.example.elormovpmdm.data.students.UsersApiService
 import com.example.elormovpmdm.domain.SessionManager
 import com.example.elormovpmdm.domain.model.Center
-import com.example.elormovpmdm.domain.model.CreateMeetingRequest
 import com.example.elormovpmdm.domain.model.Meeting
 import com.example.elormovpmdm.domain.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +15,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -92,9 +93,6 @@ class MeetingsViewModel @Inject constructor(
 
                 if (response.isSuccessful) {
                     _centers.value = response.body()?.CENTROS ?: emptyList()
-                    _centers.value.forEach { 
-                        Log.i("GVA", it.NOM)
-                    }
                 } else {
                     Log.e("GVA", "Error API: ${response.code()} - ${response.errorBody()?.string()}")
                 }
@@ -104,7 +102,26 @@ class MeetingsViewModel @Inject constructor(
         }
     }
     
-    fun createMeeting(createMeetingRequest: CreateMeetingRequest) {
-        meetingsApiService.addMeeting(createMeetingRequest)
+    suspend fun createMeeting(createMeetingRequest: Meeting) {
+        try {
+            var reunionCreada: Meeting? = null
+            viewModelScope.launch {
+                try {
+                    reunionCreada = meetingsApiService.addMeeting(createMeetingRequest)
+                } catch (e: Exception) {
+
+                }
+
+            }
+            Log.i("GVA", "Reunión creada exitosamente: ${reunionCreada?.idReunion}")
+
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            Log.e("GVA", "Error HTTP: ${e.code()} - $errorBody")
+        } catch (e: IOException) {
+            Log.e("GVA", "Error de red: ${e.message}")
+        } catch (e: Exception) {
+            Log.e("GVA", "Error inesperado", e)
+        }
     }
 }

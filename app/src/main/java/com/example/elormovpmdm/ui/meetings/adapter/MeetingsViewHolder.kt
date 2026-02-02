@@ -15,7 +15,7 @@ class MeetingsViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = MeetingCardBinding.bind(view)
     
     fun render(meeting: Meeting, onItemSelected: (Meeting) -> Unit) {
-        val studentName = meeting.usersByAlumnoId.nombre
+        val studentName = meeting.usersByAlumnoId?.nombre
         val classroom = meeting.aula
         
         val fullDate = meeting.fecha

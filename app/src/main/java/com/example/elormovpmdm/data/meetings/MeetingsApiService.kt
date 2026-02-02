@@ -2,7 +2,6 @@ package com.example.elormovpmdm.data.meetings
 
 import com.example.elormovpmdm.domain.model.Center
 import com.example.elormovpmdm.domain.model.CenterListResponse
-import com.example.elormovpmdm.domain.model.CreateMeetingRequest
 import com.example.elormovpmdm.domain.model.Meeting
 import com.google.gson.JsonObject
 import retrofit2.Response
@@ -16,7 +15,7 @@ interface MeetingsApiService {
     suspend fun getReuniones(@Path ("id") id: Int): Response<List<Meeting>>
     
     @POST("reuniones/create")
-    fun addMeeting(@Body request: CreateMeetingRequest): Response<Meeting>
+    suspend fun addMeeting(@Body request: Meeting): Meeting
     
     @GET("getCenterList")
     suspend fun getCenterList(): Response<CenterListResponse>
