@@ -161,6 +161,30 @@
         android:textColor="?attr/colorPrimarySurface">
     </EditText>
 
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/etTitle"
+        app:layout_constraintBottom_toBottomOf="@id/etTitle"
+        android:textColor="?attr/colorOnSecondary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="@string/title">
+    </TextView>
+
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etClassroom"
+        android:layout_marginTop="8dp"
+        android:textColor="?attr/colorPrimarySurface">
+    </EditText>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAdd"
         android:layout_width="match_parent"
@@ -176,5 +200,5 @@
         android:backgroundTint="@color/agreed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etClassroom" />
+        app:layout_constraintTop_toBottomOf="@id/etTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

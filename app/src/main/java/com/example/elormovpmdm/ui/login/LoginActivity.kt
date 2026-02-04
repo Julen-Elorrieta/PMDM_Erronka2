@@ -92,7 +92,7 @@ class LoginActivity : BaseActivity() {
                         }
                         is LoginState.Error -> {
                             binding.btnLogin.isEnabled = true
-                            Toast.makeText(this@LoginActivity, "Error al iniciar sesión", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginActivity, state.message, Toast.LENGTH_SHORT).show()
                         }
                         is LoginState.Idle -> {
                             binding.btnLogin.isEnabled = true

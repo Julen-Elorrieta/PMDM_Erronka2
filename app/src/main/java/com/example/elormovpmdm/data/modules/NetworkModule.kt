@@ -27,7 +27,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
-        val ipClase: String = "10.5.104.133"
+        val ipClase: String = "192.168.0.12"
         return Retrofit.Builder()
             .baseUrl("http://$ipClase:8080/") // Se define el punto de acceso al backend.
             .addConverterFactory(

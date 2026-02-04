@@ -27,6 +27,7 @@
     <string name="login_title">Educational portal</string>
     <string name="login_subtitle">Your digital space, available anytime</string>
     <string name="location">LOCATION</string>
+    <string name="title">Title:</string>
     <string name="date">Date:</string>
     <string name="hour">Hour:</string>
     <string name="center">Center:</string>

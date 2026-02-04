@@ -54,6 +54,7 @@
     <string name="location">LOCALIZACIÓN</string>
     
     <!-- add_meeting_dialog -->
+    <string name="title">Titulo:</string>
     <string name="date">Fecha:</string>
     <string name="hour">Hora:</string>
     <string name="center">Centro:</string>

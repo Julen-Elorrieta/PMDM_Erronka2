@@ -17,7 +17,6 @@ import com.example.elormovpmdm.domain.model.Schedule
 import com.example.elormovpmdm.ui.schedule.userSchedule.ScheduleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Fragmento encargado de visualizar el horario semanal del usuario.
@@ -136,11 +135,11 @@ class ScheduleFragment : Fragment() {
 
         textViews.forEach {
             it.text = ""
-            it.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+            it.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary_dark))
         }
 
         schedules.forEach { schedule ->
-            if (schedule.dia.equals(daysOfWeek[index].uppercase())) {
+            if (getDayIndex(schedule.dia) == index) {
                 val targetTextView = when (schedule.hora) {
                     1 -> binding.tvFirstHour
                     2 -> binding.tvSecondHour
@@ -159,14 +158,25 @@ class ScheduleFragment : Fragment() {
             }
         }
     }
+    
+    private fun getDayIndex(dayName: String): Int {
+        return when (dayName.uppercase()) {
+            "LUNES" -> 0
+            "MARTES" -> 1
+            "MIERCOLES" -> 2
+            "JUEVES" -> 3
+            "VIERNES" -> 4
+            else -> 0   
+        }
+    }
 
     /**
      * Retorna el color específico asociado a un ID de módulo educativo.
-     * @param modulo_id Identificador único del módulo.
+     * @param moduloId Identificador único del módulo.
      * @return Valor entero del color resuelto desde los recursos.
      */
-    private fun getModuloColor(modulo_id: Int): Int {
-        val colorRes = when(modulo_id) {
+    private fun getModuloColor(moduloId: Int): Int {
+        val colorRes = when(moduloId) {
             1 -> R.color.mod1
             2 -> R.color.mod2
             3 -> R.color.mod3

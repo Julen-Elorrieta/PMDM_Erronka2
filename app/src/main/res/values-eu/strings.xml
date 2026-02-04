@@ -27,6 +27,7 @@
     <string name="login_subtitle">Zure espazio digitala, edozein unetan eskuragarri</string>
     <string name="schedule">Ordutegia</string>
     <string name="location">KOKAPENA</string>
+    <string name="title">Titulua:</string>
     <string name="date">Data:</string>
     <string name="hour">Ordua:</string>
     <string name="center">Ikastetxea:</string>

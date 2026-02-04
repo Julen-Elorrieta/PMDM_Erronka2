@@ -21,6 +21,7 @@ import com.example.elormovpmdm.domain.model.Meeting
 import com.example.elormovpmdm.domain.model.User
 import com.example.elormovpmdm.ui.meetings.adapter.MeetingsAdapter
 import com.example.elormovpmdm.ui.meetings.addAdapter.AddDialogAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -46,6 +47,7 @@ class MeetingsFragment : Fragment() {
 
     private var _binding: FragmentMeetingsBinding? = null
     private val binding get() = _binding!!
+    private var sheetBinding: MeetingInformationBottomsheetlayoutBinding? = null
     private val meetingsViewModel: MeetingsViewModel by viewModels()
     private lateinit var meetingsAdapter: MeetingsAdapter
 
@@ -74,13 +76,60 @@ class MeetingsFragment : Fragment() {
         binding.btnAdd.setOnClickListener {
             initDialog()
         }
+        
+        sheetBinding = MeetingInformationBottomsheetlayoutBinding.inflate(layoutInflater)
     }
 
     /**
-     * Despliega un [BottomSheetDialog] con el detalle de la reunión.
+     * Despliega un BottomSheetDialog con el detalle de la reunión.
      * Incluye un mapa interactivo cargando las coordenadas del centro asociado.
      */
     private fun onItemSelected(meeting: Meeting) {
+        sheetBinding = null
+
+        // Crear nuevo binding cada vez
+        sheetBinding = MeetingInformationBottomsheetlayoutBinding.inflate(layoutInflater) // Usa el nombre correcto de tu binding
+
+        val dialog = BottomSheetDialog(requireContext())
+
+        initBottomDialogUI(meeting)
+        initBottomDialogComponents(meeting, dialog)
+
+        dialog.setContentView(sheetBinding!!.root)
+
+        // Limpiar cuando se cierra el diálogo
+        dialog.setOnDismissListener {
+            sheetBinding?.map?.onDetach()
+            sheetBinding = null
+        }
+
+        dialog.show()
+    }
+    
+    private fun initBottomDialogComponents(meeting: Meeting, dialog: com.google.android.material.bottomsheet.BottomSheetDialog) {
+        sheetBinding!!.btnConfirm.setOnClickListener { 
+            meetingsViewModel.updateMeetingStatus(meeting.idReunion, "aceptada")
+            Toast.makeText(requireContext(), "Reunion aceptada", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+        sheetBinding!!.btnCancell.setOnClickListener { 
+            meetingsViewModel.updateMeetingStatus(meeting.idReunion, "denegada")
+            Toast.makeText(requireContext(), "Reunion rechazada", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+    }
+    
+    private fun initBottomDialogUI(meeting: Meeting) {
+        if (meeting.estado.equals("aceptada", ignoreCase = true)) {
+            sheetBinding!!.clConfirmation.visibility = View.GONE
+        } else if (meeting.estado.equals("pendiente", ignoreCase = true)) {
+            if (meetingsViewModel.user!!.tipoId == 3) {
+                sheetBinding!!.clConfirmation.visibility = View.VISIBLE
+            } else {
+                sheetBinding!!.clConfirmation.visibility = View.GONE
+            }
+        }
+        
         val center: Center? = meetingsViewModel.centers.value.find {
             it.CCEN == meeting.idCentro
         }
@@ -90,36 +139,30 @@ class MeetingsFragment : Fragment() {
             return
         }
 
-        val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(requireContext())
-        val sheetBinding = MeetingInformationBottomsheetlayoutBinding.inflate(layoutInflater)
-
         // Parseo de fecha ISO 8601 a componentes locales
         val instant = Instant.parse(meeting.fecha)
         val localDateTime = instant.toLocalDateTime(TimeZone.UTC)
 
-        sheetBinding.meetingDate.text = localDateTime.date.toString()
-        sheetBinding.meetingHour.text = localDateTime.time.toString()
-        sheetBinding.center.text = center.NOM
-        sheetBinding.meetingClassroom.text = meeting.aula ?: "Sin aula asignada"
+        sheetBinding!!.meetingDate.text = localDateTime.date.toString()
+        sheetBinding!!.meetingHour.text = localDateTime.time.toString()
+        sheetBinding!!.center.text = center.NOM
+        sheetBinding!!.meetingClassroom.text = meeting.aula ?: "Sin aula asignada"
 
         // Configuración de osmdroid para mostrar la ubicación
         Configuration.getInstance().userAgentValue = "com.example.elormovpmdm"
-        sheetBinding.map.setTileSource(TileSourceFactory.MAPNIK)
-        sheetBinding.map.setMultiTouchControls(true)
+        sheetBinding!!.map.setTileSource(TileSourceFactory.MAPNIK)
+        sheetBinding!!.map.setMultiTouchControls(true)
 
         val startPoint = GeoPoint(center.LONGITUD.toDouble(), center.LATITUD.toDouble())
-        val startMarker = Marker(sheetBinding.map)
-        val mapController = sheetBinding.map.controller
-        mapController.setZoom(15.0)
+        val startMarker = Marker(sheetBinding!!.map)
+        val mapController = sheetBinding!!.map.controller
+        mapController?.setZoom(15.0)
 
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
         startMarker.position = startPoint
         startMarker.title = center.NOM
-        sheetBinding.map.overlays.add(startMarker)
+        sheetBinding!!.map.overlays.add(startMarker)
         mapController.setCenter(startPoint)
-
-        dialog.setContentView(sheetBinding.root)
-        dialog.show()
     }
 
     /**
@@ -180,19 +223,19 @@ class MeetingsFragment : Fragment() {
             val selectedCenter = meetingsViewModel.centers.value.find {
                 it.NOM == dialogBinding.autoCompleteTextView.text.toString()
             }?.CCEN ?: ""
-
+            // Formateo ISO 8601 para compatibilidad con backend
+            val dateTimeString = "${dialogBinding.etDate.text.toString().replace("/", "-")}T${dialogBinding.etHour.text}:00.00Z"
+            val title: String = dialogBinding.etTitle.text.toString()
+            val aula: String = dialogBinding.etClassroom.text.toString()
             // Lógica de validación
-            if (selectedUser == null || selectedCenter.isEmpty()) {
+            if (selectedUser == null || selectedCenter.isEmpty() || dateTimeString.isEmpty() || title.isEmpty() || aula.isEmpty()) {
                 Toast.makeText(requireContext(), "Faltan datos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-            // Formateo ISO 8601 para compatibilidad con backend
-            val dateTimeString = "${dialogBinding.etDate.text.toString().replace("/", "-")}T${dialogBinding.etHour.text}:00.00Z"
-
+            
             val request = Meeting(
-                titulo = "Reunion con ${selectedUser!!.nombre}",
-                aula = dialogBinding.etClassroom.text.toString(),
+                titulo = title,
+                aula = aula,
                 fecha = dateTimeString,
                 estado = if (meetingsViewModel.user!!.tipoId == 4) "pendiente" else "aceptada",
                 idCentro = selectedCenter,

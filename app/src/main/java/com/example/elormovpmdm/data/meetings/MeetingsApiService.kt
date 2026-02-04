@@ -6,6 +6,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 /**
@@ -19,7 +20,7 @@ interface MeetingsApiService {
      * @return [Response] que contiene una lista de objetos [Meeting].
      */
     @GET("reuniones/getReuniones/{id}")
-    suspend fun getReuniones(@Path ("id") id: Int): Response<List<Meeting>>
+    suspend fun getReuniones(@Path ("id") id: Int): Response<MutableList<Meeting>>
 
     /**
      * Registra una nueva reunión en el servidor.
@@ -29,7 +30,10 @@ interface MeetingsApiService {
      */
     @POST("reuniones/create")
     suspend fun addMeeting(@Body request: Meeting): Meeting
-
+    
+    @PUT("reuniones/updateEstado/{id}")
+    suspend fun updateMeetingStatus(@Path ("id") id: Int?, @Body body: Map<String, String>): Meeting
+    
     /**
      * Obtiene el listado completo de centros disponibles.
      * @return [Response] con la estructura [CenterListResponse].

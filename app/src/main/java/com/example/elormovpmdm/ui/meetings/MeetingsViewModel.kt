@@ -31,8 +31,8 @@ class MeetingsViewModel @Inject constructor(
 ): ViewModel(){
 
     // Flujos de estado para la UI
-    private val _meetings = MutableStateFlow<List<Meeting>> (emptyList())
-    val meetings: StateFlow<List<Meeting>> = _meetings
+    private val _meetings = MutableStateFlow<MutableList<Meeting>> (mutableListOf())
+    val meetings: StateFlow<MutableList<Meeting>> = _meetings
 
     private val _users = MutableStateFlow<List<User>> (emptyList())
     val users: StateFlow<List<User>> = _users
@@ -61,7 +61,7 @@ class MeetingsViewModel @Inject constructor(
                 }
 
                 if(response.isSuccessful) {
-                    _meetings.value = response.body() ?: emptyList()
+                    _meetings.value = response.body() as MutableList<Meeting>
                 } else {
                     Log.i("GVA", "Error API: ${response.code()}")
                 }
@@ -117,12 +117,15 @@ class MeetingsViewModel @Inject constructor(
      * Envía una solicitud para crear una nueva reunión.
      * @param createMeetingRequest Objeto con los datos de la reunión a persistir.
      */
-    suspend fun createMeeting(createMeetingRequest: Meeting) {
+    fun createMeeting(createMeetingRequest: Meeting) {
         try {
             // Se lanza una nueva corrutina para la ejecución de red
             viewModelScope.launch {
                 try {
-                    meetingsApiService.addMeeting(createMeetingRequest)
+                    val response = withContext(Dispatchers.IO) {
+                        meetingsApiService.addMeeting(createMeetingRequest)
+                    }
+                    _meetings.value.add(response)
                     // Nota: Aquí faltaría actualizar la lista local de reuniones tras el éxito
                 } catch (e: Exception) {
                     Log.e("GVA", "Error en addMeeting: ${e.message}")
@@ -134,6 +137,18 @@ class MeetingsViewModel @Inject constructor(
             Log.e("GVA", "Error de red: ${e.message}")
         } catch (e: Exception) {
             Log.e("GVA", "Error inesperado", e)
+        }
+    }
+    
+    fun updateMeetingStatus(id: Int?, estado: String) {
+        val map: Map<String, String> = mapOf<String, String>("estado" to estado)
+        try {
+            viewModelScope.launch { 
+                meetingsApiService.updateMeetingStatus(id, map)
+            }
+            
+        } catch (e: Exception) {
+            Log.e("GVA", "FALLO TOTAL: ${e.message}")
         }
     }
 }

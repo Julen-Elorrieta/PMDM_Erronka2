@@ -61,9 +61,13 @@ class LoginViewModel @Inject constructor(
             if (result != null && result.isSuccessful) {
                 val user = result.body()
                 if (user != null) {
-                    _state.value = LoginState.Success
-                    // Persiste el usuario en el SessionManager (DataStore).
-                    sessionManager.saveUser(user)
+                    if (user.tipoId == 3 || user.tipoId == 4) {
+                        _state.value = LoginState.Success
+                        // Persiste el usuario en el SessionManager (DataStore).
+                        sessionManager.saveUser(user)
+                    } else {
+                        _state.value = LoginState.Error("Usuario no autorizado")
+                    }
                 } else {
                     _state.value = LoginState.Error("Respuesta vacía del servidor")
                 }
