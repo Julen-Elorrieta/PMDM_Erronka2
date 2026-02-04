@@ -17,6 +17,11 @@ import com.example.elormovpmdm.ui.students.adapter.StudentsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+/**
+ * Fragmento encargado de mostrar el listado de estudiantes (alumnos) para el perfil de profesor.
+ * Gestiona la visualización en un RecyclerView y el despliegue de información detallada
+ * mediante un componente BottomSheet.
+ */
 @AndroidEntryPoint
 class StudentsFragment : Fragment() {
     
@@ -33,6 +38,9 @@ class StudentsFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Libera la referencia al binding al destruir la vista para evitar fugas de memoria.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -43,13 +51,23 @@ class StudentsFragment : Fragment() {
         initComponents()
         initUI()
     }
-    
+
+    /**
+     * Inicializa los componentes de la interfaz, configurando el adaptador del listado
+     * y estableciendo un diseño de cuadrícula (GridLayout) de una sola columna.
+     */
     private fun initComponents() {
         studentsAdapter = StudentsAdapter(onItemSelected = { onItemSelected(it) })
         binding.rvStudents.layoutManager = GridLayoutManager(context, 1)
         binding.rvStudents.adapter = studentsAdapter
     }
-    
+
+    /**
+     * Gestiona el evento de selección de un estudiante.
+     * Infla un BottomSheetDialog dinámicamente para mostrar el perfil completo del alumno
+     * seleccionado (ID, dirección, teléfono, email, etc.).
+     * * @param user El objeto de tipo User con los datos del alumno pulsado.
+     */
     private fun onItemSelected(user: User) {
         val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(requireContext())
         val sheetBinding = StudentBottomsheetlayoutBinding.inflate(layoutInflater)
@@ -67,7 +85,11 @@ class StudentsFragment : Fragment() {
         dialog.setContentView(sheetBinding.root)
         dialog.show()
     }
-    
+
+    /**
+     * Configura la observación del StateFlow del ViewModel dentro del ciclo de vida del fragmento.
+     * Actualiza el adaptador cada vez que la lista de usuarios emite nuevos datos.
+     */
     private fun initUI() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

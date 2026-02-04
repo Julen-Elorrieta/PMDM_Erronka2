@@ -2,7 +2,6 @@ package com.example.elormovpmdm.ui.schedule
 
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,21 +13,29 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.elormovpmdm.R
 import com.example.elormovpmdm.databinding.FragmentSchedulesBinding
-import com.example.elormovpmdm.domain.SessionManager
 import com.example.elormovpmdm.domain.model.Schedule
 import com.example.elormovpmdm.ui.schedule.userSchedule.ScheduleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Fragmento encargado de visualizar el horario semanal del usuario.
+ * Permite la navegación entre los días de la semana (Lunes a Viernes) y muestra
+ * de forma dinámica los módulos correspondientes a cada franja horaria.
+ */
 @AndroidEntryPoint
 class ScheduleFragment : Fragment() {
     private var _binding: FragmentSchedulesBinding? = null
     private val binding get() = _binding!!
     private val scheduleViewModel: ScheduleViewModel by viewModels()
     private var schedules: List<Schedule> = emptyList()
-    private var currentIndex: Int = 0
-        //Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
+
+    /**
+     * Índice del día actual visualizado.
+     * Se inicializa en 0 (Lunes).
+     */
+    private var currentIndex: Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +47,10 @@ class ScheduleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /**
+         * Lista de cadenas con los nombres de los días de la semana,
+         * obtenida de forma perezosa (lazy) desde los recursos.
+         */
         val daysOfWeek by lazy {
             listOf(
                 ContextCompat.getString(requireContext(), R.string.monday),
@@ -53,6 +64,10 @@ class ScheduleFragment : Fragment() {
         initUI(daysOfWeek)
     }
 
+    /**
+     * Configura los botones de navegación (atrás y adelante).
+     * Implementa un sistema de carrusel infinito para recorrer los días de la semana.
+     */
     private fun initComponents(daysOfWeek: List<String>) {
         binding.btnBack.setOnClickListener {
             if (currentIndex > 0) {
@@ -78,6 +93,10 @@ class ScheduleFragment : Fragment() {
         }
     }
 
+    /**
+     * Inicializa la interfaz de usuario observando el flujo de datos del ViewModel.
+     * Actualiza el horario automáticamente cuando se detectan cambios en el StateFlow.
+     */
     private fun initUI(daysOfWeek: List<String>) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -93,10 +112,18 @@ class ScheduleFragment : Fragment() {
         binding.ivDay.text = daysOfWeek[currentIndex]
     }
 
+    /**
+     * Actualiza la referencia local de la lista de horarios.
+     */
     private fun updateList(listUpdated: List<Schedule>) {
         schedules = listUpdated
     }
 
+    /**
+     * Dibuja visualmente el horario en la UI para el día seleccionado.
+     * Limpia los contenedores previos y asigna el nombre del módulo y su color
+     * representativo a la franja horaria correspondiente (1ª a 6ª hora).
+     */
     private fun paintSchedule(daysOfWeek: List<String>, index: Int) {
         val textViews = listOf(
             binding.tvFirstHour,
@@ -133,6 +160,11 @@ class ScheduleFragment : Fragment() {
         }
     }
 
+    /**
+     * Retorna el color específico asociado a un ID de módulo educativo.
+     * @param modulo_id Identificador único del módulo.
+     * @return Valor entero del color resuelto desde los recursos.
+     */
     private fun getModuloColor(modulo_id: Int): Int {
         val colorRes = when(modulo_id) {
             1 -> R.color.mod1

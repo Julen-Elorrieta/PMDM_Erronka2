@@ -14,10 +14,22 @@
         android:id="@+id/teachersSchedulesFragment"
         android:name="com.example.elormovpmdm.ui.schedule.TeachersSchedulesFragment"
         android:label="fragment_teachers_schedules"
-        tools:layout="@layout/fragment_teachers_schedules" />
+        tools:layout="@layout/fragment_teachers_schedules" >
+        <action
+            android:id="@+id/action_teachersSchedulesFragment_to_userScheduleActivity"
+            app:destination="@id/userScheduleActivity" />
+    </fragment>
     <fragment
         android:id="@+id/meetingsFragment"
         android:name="com.example.elormovpmdm.ui.meetings.MeetingsFragment"
         android:label="fragment_meetings"
         tools:layout="@layout/fragment_meetings" />
+    <activity
+        android:id="@+id/userScheduleActivity"
+        android:name="com.example.elormovpmdm.ui.schedule.userSchedule.UserScheduleActivity"
+        android:label="UserScheduleActivity">
+        <argument
+            android:name="user_id"
+            app:argType="integer" />
+    </activity>
 </navigation>

@@ -15,19 +15,37 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-
+/**
+ * ViewModel encargado de gestionar la lógica de obtención de profesores para la vista de horarios.
+ * Actúa como intermediario entre el servicio de red (UsersApiService) y el fragmento,
+ * manteniendo el estado de la lista de usuarios de forma reactiva.
+ */
 @HiltViewModel
 class TeachersSchedulesViewModel @Inject constructor(
     private val usersApiService: UsersApiService,
     private val sessionManager: SessionManager
 ): ViewModel() {
+    /**
+     * Flujo interno mutable que gestiona la lista de usuarios encontrados.
+     */
     private val _users = MutableStateFlow<List<User>> (emptyList())
+
+    /**
+     * Flujo de estado público que expone la lista de usuarios para ser observada por la UI.
+     */
     val users: StateFlow<List<User>> = _users
 
+    /**
+     * Al instanciar el ViewModel, se lanza automáticamente la petición para cargar los usuarios.
+     */
     init {
         getAllUsers()
     }
 
+    /**
+     * Recupera la lista de profesores asociados al alumno actualmente autenticado.
+     * La operación se realiza de forma asíncrona utilizando Corrutinas en el hilo de IO.
+     */
     fun getAllUsers() {
         viewModelScope.launch {
             try {

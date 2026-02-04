@@ -19,12 +19,18 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
+/**
+ * ViewModel para la gestión de datos de reuniones, usuarios relacionados y centros.
+ * Mantiene flujos reactivos para actualizar la UI en tiempo real.
+ */
 @HiltViewModel
 class MeetingsViewModel @Inject constructor(
     private val meetingsApiService: MeetingsApiService,
     private val usersApiService: UsersApiService,
     private val sessionManager: SessionManager
 ): ViewModel(){
+
+    // Flujos de estado para la UI
     private val _meetings = MutableStateFlow<List<Meeting>> (emptyList())
     val meetings: StateFlow<List<Meeting>> = _meetings
 
@@ -33,26 +39,31 @@ class MeetingsViewModel @Inject constructor(
 
     private val _centers = MutableStateFlow<List<Center>> (emptyList())
     val centers: StateFlow<List<Center>> = _centers
-    
+
+    // Usuario actualmente autenticado obtenido del Singleton SessionManager
     val user = sessionManager.currentUser.value
 
     init {
+        // Carga inicial de datos al instanciar el ViewModel
         getAllMeetings()
         getAllUsers()
         getAllCenters()
     }
 
+    /**
+     * Recupera todas las reuniones asociadas al usuario actual.
+     */
     fun getAllMeetings() {
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
                     meetingsApiService.getReuniones(sessionManager.currentUser.value!!.id)
                 }
-                
+
                 if(response.isSuccessful) {
                     _meetings.value = response.body() ?: emptyList()
                 } else {
-                    Log.i("GVA", "Error API: ${response.code()} - ${response.errorBody()?.string()}")
+                    Log.i("GVA", "Error API: ${response.code()}")
                 }
             } catch (e: Exception) {
                 Log.i("GVA", "FALLO TOTAL: ${e.message}")
@@ -60,6 +71,9 @@ class MeetingsViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Recupera la lista de usuarios (estudiantes o profesores) según el rol del usuario actual.
+     */
     fun getAllUsers() {
         viewModelScope.launch {
             try {
@@ -73,8 +87,6 @@ class MeetingsViewModel @Inject constructor(
 
                 if (response.isSuccessful) {
                     _users.value = response.body() ?: emptyList()
-                } else {
-                    Log.i("GVA", "Error API: ${response.code()} - ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
                 Log.i("GVA", "FALLO TOTAL: ${e.message}")
@@ -82,42 +94,42 @@ class MeetingsViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Recupera el catálogo de centros disponibles para las reuniones.
+     */
     fun getAllCenters() {
         viewModelScope.launch {
             try {
-                Log.i("GVA", "getCenterList llamado")
-                
                 val response = withContext(Dispatchers.IO) {
                     meetingsApiService.getCenterList()
                 }
 
                 if (response.isSuccessful) {
                     _centers.value = response.body()?.CENTROS ?: emptyList()
-                } else {
-                    Log.e("GVA", "Error API: ${response.code()} - ${response.errorBody()?.string()}")
                 }
             } catch (e: Exception) {
                 Log.e("GVA", "FALLO TOTAL: ${e.message}")
             }
         }
     }
-    
+
+    /**
+     * Envía una solicitud para crear una nueva reunión.
+     * @param createMeetingRequest Objeto con los datos de la reunión a persistir.
+     */
     suspend fun createMeeting(createMeetingRequest: Meeting) {
         try {
-            var reunionCreada: Meeting? = null
+            // Se lanza una nueva corrutina para la ejecución de red
             viewModelScope.launch {
                 try {
-                    reunionCreada = meetingsApiService.addMeeting(createMeetingRequest)
+                    meetingsApiService.addMeeting(createMeetingRequest)
+                    // Nota: Aquí faltaría actualizar la lista local de reuniones tras el éxito
                 } catch (e: Exception) {
-
+                    Log.e("GVA", "Error en addMeeting: ${e.message}")
                 }
-
             }
-            Log.i("GVA", "Reunión creada exitosamente: ${reunionCreada?.idReunion}")
-
         } catch (e: HttpException) {
-            val errorBody = e.response()?.errorBody()?.string()
-            Log.e("GVA", "Error HTTP: ${e.code()} - $errorBody")
+            Log.e("GVA", "Error HTTP: ${e.code()}")
         } catch (e: IOException) {
             Log.e("GVA", "Error de red: ${e.message}")
         } catch (e: Exception) {

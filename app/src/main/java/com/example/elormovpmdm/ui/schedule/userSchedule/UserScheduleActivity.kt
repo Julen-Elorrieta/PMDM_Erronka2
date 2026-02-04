@@ -1,33 +1,45 @@
 package com.example.elormovpmdm.ui.schedule.userSchedule
 
-import android.content.Intent
+
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.navArgs
 import com.example.elormovpmdm.BaseActivity
 import com.example.elormovpmdm.R
 import com.example.elormovpmdm.databinding.ActivityScheduleBinding
 import com.example.elormovpmdm.domain.model.Schedule
-import com.example.elormovpmdm.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+/**
+ * Actividad encargada de mostrar el horario detallado de un usuario específico.
+ * Recibe el ID del usuario a través de Navigation Safe Args y permite navegar
+ * por los días de la semana para visualizar la carga lectiva y sus colores asociados.
+ */
 @AndroidEntryPoint
 class UserScheduleActivity : BaseActivity() {
 
     private lateinit var binding: ActivityScheduleBinding
     private var schedules: List<Schedule> = emptyList()
     private val userScheduleViewModel: UserScheduleViewModel by viewModels()
-    private var currentIndex: Int = 0
-        //Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
+
+    /**
+     * Índice que controla el día de la semana que se está pintando actualmente.
+     */
+    private var currentIndex: Int = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
+
+    /**
+     * Recuperación de los argumentos de navegación (ID del usuario) pasados desde el fragmento anterior.
+     */
+    private val args: UserScheduleActivityArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +54,9 @@ class UserScheduleActivity : BaseActivity() {
             insets
         }
 
+        /**
+         * Definición perezosa de los días de la semana para el etiquetado de la UI.
+         */
         val daysOfWeek by lazy {
             listOf(
                 getString(R.string.monday),
@@ -56,6 +71,10 @@ class UserScheduleActivity : BaseActivity() {
         initUI(daysOfWeek)
     }
 
+    /**
+     * Inicializa los componentes interactivos de la actividad, como los botones de
+     * cierre y navegación entre días (adelante/atrás).
+     */
     private fun initComponents(daysOfWeek: List<String>) {
         binding.btnQuit.setOnClickListener { 
             finish()
@@ -85,6 +104,10 @@ class UserScheduleActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Configura la observación reactiva del flujo de horarios del ViewModel.
+     * Actualiza la vista cada vez que se reciben datos nuevos del servidor.
+     */
     private fun initUI(daysOfWeek: List<String>) {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -101,10 +124,17 @@ class UserScheduleActivity : BaseActivity() {
         binding.ivDay.text = daysOfWeek[currentIndex]
     }
 
+    /**
+     * Actualiza la memoria local de la lista de horarios obtenida del ViewModel.
+     */
     private fun updateList(listUpdated: List<Schedule>) {
         schedules = listUpdated
     }
 
+    /**
+     * Mapea y dibuja los datos del horario en los TextViews correspondientes a cada hora.
+     * Limpia la vista antes de pintar el nuevo día seleccionado y asigna colores por módulo.
+     */
     private fun paintSchedule(daysOfWeek: List<String>, index: Int) {
         val textViews = listOf(
             binding.tvFirstHour,
@@ -141,6 +171,11 @@ class UserScheduleActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Determina el color de fondo de la celda basándose en el ID del módulo.
+     * @param modulo_id ID único del módulo lectivo.
+     * @return Color resuelto para aplicar a la vista.
+     */
     private fun getModuloColor(modulo_id: Int): Int {
         val colorRes = when(modulo_id) {
             1 -> R.color.mod1

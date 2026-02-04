@@ -5,4 +5,7 @@ plugins {
 
     //DaggerHilt
     id("com.google.dagger.hilt.android") version "2.48" apply false
+
+    //SafeArgs
+    id("androidx.navigation.safeargs.kotlin") version "2.7.1" apply false
 }

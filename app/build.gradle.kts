@@ -2,9 +2,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 
-    // Hilt
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    //SafeArgs
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
